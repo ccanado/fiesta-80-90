@@ -493,7 +493,7 @@
   .tv-grid-wrap::after{content:"";position:absolute;left:0;right:0;bottom:0;height:36px;pointer-events:none;
     background:linear-gradient(180deg,transparent,rgba(10,1,24,.85));border-radius:0 0 12px 12px}
   .tv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;
-    max-height:440px;overflow-y:auto;overflow-x:hidden;padding:4px 8px 8px 4px;
+    max-height:580px;overflow-y:auto;overflow-x:hidden;padding:4px 8px 8px 4px;
     scrollbar-width:thin;scrollbar-color:var(--neon-cyan) rgba(255,255,255,.05)}
   .tv-grid::-webkit-scrollbar{width:8px}
   .tv-grid::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:4px}
@@ -502,7 +502,12 @@
     background:linear-gradient(160deg,rgba(0,240,255,.07),rgba(177,74,255,.04));
     transition:.2s;position:relative}
   .tv-card:hover{border-color:var(--neon-cyan);box-shadow:0 8px 24px rgba(0,240,255,.18)}
-  .tv-card .tv-emoji{font-size:1.6rem;margin-bottom:6px}
+  .tv-card .tv-cover{width:100%;aspect-ratio:1/1;border-radius:8px;margin-bottom:10px;overflow:hidden;
+    background:linear-gradient(135deg,rgba(0,240,255,.18),rgba(177,74,255,.18));
+    background-size:cover;background-position:center;background-repeat:no-repeat;
+    display:flex;align-items:center;justify-content:center;font-size:2.4rem;
+    box-shadow:0 4px 10px rgba(0,0,0,.3)}
+  .tv-card .tv-cover.has-img{font-size:0}
   .tv-card .tv-title{font-weight:700;font-size:.95rem;line-height:1.25;margin-bottom:3px}
   .tv-card .tv-meta{font-family:'Audiowide',sans-serif;font-size:.65rem;color:var(--neon-cyan);letter-spacing:1px;margin-bottom:8px}
   .tv-card .tv-note{font-size:.78rem;color:rgba(244,236,255,.65);line-height:1.4;margin-bottom:10px}
@@ -1130,6 +1135,15 @@ function fetchCoverITunes(t,a,imgEl){
     }).catch(()=>{});
 }
 
+/* Carátula desde una URL completa de Spotify (track, playlist o album) vía oEmbed */
+function fetchCoverFromUrl(spotifyUrl, imgEl){
+  if(!spotifyUrl) return;
+  fetch("https://open.spotify.com/oembed?url="+encodeURIComponent(spotifyUrl))
+    .then(r=>r.json())
+    .then(d=>{ if(d&&d.thumbnail_url) applyCover(imgEl,d.thumbnail_url); })
+    .catch(()=>{});
+}
+
 /* ====== RENDER PESTAÑAS (con acordeones por grupo) ====== */
 function trackHTML(s,k,i){
   const iconic = s.side!=="rest" ? "iconic":"";
@@ -1524,35 +1538,37 @@ function playInVinyl(trackId, escName){
 
 /* ====== TV DE AQUELLA ÉPOCA ====== */
 const SINTONIAS=[
-  {t:"Bola de Dragón (opening)", s:"Bola de Dragón / Dragon Ball", y:1989, n:"Anime japonés de Akira Toriyama; en España la sintonía 'Bola de Dragón' fue interpretada por el actor de doblaje Jordi Vila y traducida por Amado Jaen.", id:"https://open.spotify.com/playlist/4xX8RDoBuCloblwmBGtR65"},
-  {t:"Luz, fuego y destrucción", s:"Bola de Dragón Z", y:1992, n:"Opening en castellano de Dragon Ball Z; arrasó entre los niños de los 90.", id:"https://open.spotify.com/track/7pHug3t0XkdLTknZWjkbIS"},
-  {t:"La Abeja Maya", s:"La Abeja Maya", y:1978, n:"Anime japonés basado en el libro de Waldemar Bonsels; en España la cantó Karina y se hizo eterna.", id:"https://open.spotify.com/playlist/0mmNF16AjTMFlBJmEjlxg8"},
-  {t:"D'Artacán y los Tres Mosqueperros", s:"D'Artacán y los Tres Mosqueperros", y:1982, n:"Coproducción española-japonesa de BRB Internacional con música de Guido y Maurizio De Angelis; la versión final 'a ladridos' es legendaria.", id:"https://open.spotify.com/track/1jcHFS977X9dTZSuQCaJCi"},
-  {t:"Campeones (Oliver y Benji)", s:"Campeones / Oliver y Benji", y:1990, n:"Anime de fútbol japonés; la versión española la adaptó Carlos Toro (el mismo que escribió 'Resistiré' del Dúo Dinámico).", id:"https://open.spotify.com/track/6B4XeMyN3KkTE8tArmjl76"},
-  {t:"Heidi", s:"Heidi", y:1975, n:"Anime de Isao Takahata; la versión alemana de Gitti und Erika es de las canciones en alemán más reconocibles del mundo.", id:"https://open.spotify.com/track/3sSS2OXwJYBy5XwJTTDyuy"},
-  {t:"Marco", s:"De los Apeninos a los Andes (Marco)", y:1977, n:"Anime de Nippon Animation; canción de apertura en castellano interpretada por la cantante chilena María Elena Bargagli.", id:"https://open.spotify.com/album/21gzoxt3u3eYf13qqOE6P0"},
-  {t:"David el Gnomo", s:"David el Gnomo", y:1985, n:"Serie animada española de BRB; el opening con la voz de Cris Juanico y los enanos a caballo de zorros era inconfundible.", id:"https://open.spotify.com/track/6Gy51tM0x48Sj1knSLCy5Q"},
-  {t:"Los Fraggle Rock", s:"Los Fraggle", y:1984, n:"Serie de marionetas de Jim Henson; opening funky con 'Gobo, Musi, Rosi, Dudo y Bombo'.", id:"https://open.spotify.com/track/5QIkpHVThnrfsK4wOOxRIP"},
-  {t:"Ulises 31", s:"Ulises 31", y:1985, n:"Coproducción francesa-japonesa que mezclaba la Odisea con ciencia ficción; sintonía épica icónica.", id:"https://open.spotify.com/track/0zlfmgemuUUBTmlSTSHPsD"},
-  {t:"Mazinger Z", s:"Mazinger Z", y:1978, n:"Anime de robots gigantes de Go Nagai; la sintonía '¡puños fuera!' fue de las primeras en hacer historia en TVE.", id:"https://open.spotify.com/playlist/2sQklmr11v4L1bXhqyDLjP"},
-  {t:"Patoaventuras", s:"Patoaventuras (DuckTales)", y:1990, n:"Serie de Disney con Gilito McPato; la sintonía en castellano la cantó Mónica Capel, ex-componente de los Nins.", id:"https://open.spotify.com/track/7cHPk03M5ZVbfqXF6QFnVw"},
-  {t:"Chip y Chop", s:"Chip y Chop: los Guardianes Rescatadores", y:1991, n:"Otra serie Disney en horario infantil; opening cantado también por Mónica Capel.", id:"https://open.spotify.com/track/3f7VlYzkPMfokla5dkqBT4"},
-  {t:"Comando G (La batalla de los planetas)", s:"Comando G", y:1980, n:"Una de las series más recordadas; coro 'Comando G, Comando G' inolvidable.", id:"https://open.spotify.com/track/2odDYDU24DT7oleYp5QVly"},
-  {t:"Érase una vez... el cuerpo humano", s:"Érase una vez... el cuerpo humano", y:1989, n:"Educativa francesa de Albert Barillé; sintonía instrumental que evoca clase de Cono.", id:"https://open.spotify.com/track/4l9ptfFEiyygGqmmR9aaQk"},
-  {t:"La llamada de los gnomos", s:"La llamada de los gnomos", y:1987, n:"Spin-off de 'David el Gnomo'; protagonizada por el juez Klaus y su ayudante Dany.", id:"https://open.spotify.com/track/1LN3naO58m1FGiArA8HBQ5"},
-  {t:"Sailor Moon", s:"Sailor Moon", y:1993, n:"Anime mágico que marcó a una generación de niñas a principios de los 90.", id:"https://open.spotify.com/playlist/4ssNVe64tekQRsoeatDyeI"},
-  {t:"Los Caballeros del Zodiaco (Saint Seiya)", s:"Los Caballeros del Zodiaco", y:1990, n:"Anime de los 'Santos' con armaduras; sintonía épica japonesa primero en latino y luego en castellano.", id:"https://open.spotify.com/playlist/1CBvHoxsyVgxPz5jxLypqs"},
-  {t:"Mofli, el último koala", s:"Mofli, el último koala", y:1987, n:"Serie española del estudio EQUIP; ecologista, una niña amiga del último koala.", id:"https://open.spotify.com/track/7vCbqWQZkZsG4qQWIuMeEi"},
-  {t:"Candy Candy", s:"Candy Candy", y:1986, n:"Anime japonés sobre una huérfana cuya melodía abrió tardes enteras en TVE; la versión española la interpretó Capri.", id:"https://open.spotify.com/playlist/0cBkTrfJUxDz3cBy1XVJKE"},
-  {t:"Chicho Terremoto", s:"Chicho Terremoto (Dash Kappei)", y:1987, n:"Anime de baloncesto japonés con un protagonista bajito pero imparable; sintonía coreada en patios del cole.", id:"https://open.spotify.com/playlist/2sTxeG8rF7n8zLclYyWoOH"},
-  {t:"Abracadabra (La Bola de Cristal)", s:"La Bola de Cristal", y:1984, n:"Programa infantil mítico de TVE; canción interpretada por Alaska: '¡Qué tiene esta bola que a todo el mundo le mola!'", id:"https://open.spotify.com/track/0ZwG6ttqzRJpThmgW6IDCZ"},
-  {t:"Pumuky", s:"Pumuky (Meister Eder und sein Pumuckl)", y:1985, n:"Serie alemana sobre un duendecillo travieso creado en 1961 por Ellis Kaut; en España se emitió en TVE-1 desde 1985. Una de las primeras series en mezclar animación con imagen real.", id:"https://open.spotify.com/track/57CydMbS2cXleMHamBihlz"},
-  {t:"Banner y Flappy", s:"Banner y Flappy (Seton Dōbutsuki Risu no Bannā)", y:1979, n:"Anime de Nippon Animation basado en cuentos de Ernest Thompson Seton; cuenta la historia de Banner, ardilla criada por una gata, y su amiga Flappy. Emitida en TVE desde diciembre de 1979.", id:"https://open.spotify.com/track/1kEfjgDcRnIaDFjX9jpdtb"},
-  {t:"El Osito Misha", s:"El Osito Misha (Koguma no Misha)", y:1979, n:"Anime de Nippon Animation; el osito que fue mascota oficial de los Juegos Olímpicos de Moscú 1980 tuvo su propia serie animada que llegó a TVE en los años 80.", id:"https://open.spotify.com/track/1HLSfJ6yZedfb5qayrFcVV"},
-  {t:"Los Diminutos", s:"Los Diminutos (The Littles)", y:1986, n:"Serie de animación franco-estadounidense (DIC Entertainment, 1983-85) sobre seres minúsculos que viven entre los humanos; en España la estrenó TVE el 6 de abril de 1986.", id:"https://open.spotify.com/track/4bjUYYsS7FsgxNAATQwtZO"},
-  {t:"Los Aurones", s:"Los Aurones", y:1985, n:"Serie española de la sobremesa de los fines de semana de los 80; tan presente en la cultura popular que sus personajes (Poti, Gallofa) se convirtieron en motes de patio de colegio.", id:"https://open.spotify.com/album/3lH4tJJOyV5JB93BmveWRt"},
-  {t:"Los Snorkels", s:"Los Snorkels (Snorks)", y:1986, n:"Coproducción franco-belga-estadounidense (Hanna-Barbera) sobre criaturas marinas con respiraderos en la cabeza; pinchada en las sobremesas españolas como contraparte acuática de los Pitufos.", id:"https://open.spotify.com/track/1jHNTiDF09yzrzdYakuKFo"},
-  {t:"La vuelta al mundo de Willy Fog", s:"La vuelta al mundo de Willy Fog", y:1984, n:"Coproducción de BRB Internacional, TVE y Nippon Animation, basada en la novela de Jules Verne con animales antropomorfos. El opening y el cierre 'Sílbame' los interpretó Mocedades.", id:"https://open.spotify.com/track/4edH87LZLHm4lHm5Kzdkbv"},
+  {t:"Bola de Dragón (opening)", s:"Bola de Dragón / Dragon Ball", y:1989, n:"Anime japonés de Akira Toriyama; en España la sintonía 'Bola de Dragón' fue interpretada por el actor de doblaje Jordi Vila y traducida por Amado Jaen.", id:"https://open.spotify.com/playlist/4xX8RDoBuCloblwmBGtR65", cover:"https://artworks.thetvdb.com/banners/v4/series/419423/posters/6581c2ff1218d.jpg"},
+  {t:"Luz, fuego y destrucción", s:"Bola de Dragón Z", y:1992, n:"Opening en castellano de Dragon Ball Z; arrasó entre los niños de los 90.", id:"https://open.spotify.com/track/7pHug3t0XkdLTknZWjkbIS", cover:"https://artworks.thetvdb.com/banners/movies/307214/posters/1J1e8Uslw8MAE7mIVFh6TU9mPt8.jpg"},
+  {t:"La Abeja Maya", s:"La Abeja Maya", y:1978, n:"Anime japonés basado en el libro de Waldemar Bonsels; en España la cantó Karina y se hizo eterna.", id:"https://open.spotify.com/playlist/0mmNF16AjTMFlBJmEjlxg8", cover:"https://artworks.thetvdb.com/banners/posters/73518-6.jpg"},
+  {t:"D'Artacán y los Tres Mosqueperros", s:"D'Artacán y los Tres Mosqueperros", y:1982, n:"Coproducción española-japonesa de BRB Internacional con música de Guido y Maurizio De Angelis; la versión final 'a ladridos' es legendaria.", id:"https://open.spotify.com/track/1jcHFS977X9dTZSuQCaJCi", cover:"https://artworks.thetvdb.com/banners/posters/663fd227933a8.jpg"},
+  {t:"Campeones (Oliver y Benji)", s:"Campeones / Oliver y Benji", y:1990, n:"Anime de fútbol japonés; la versión española la adaptó Carlos Toro (el mismo que escribió 'Resistiré' del Dúo Dinámico).", id:"https://open.spotify.com/track/6B4XeMyN3KkTE8tArmjl76", cover:"https://artworks.thetvdb.com/banners/posters/84045-8.jpg"},
+  {t:"Heidi", s:"Heidi", y:1975, n:"Anime de Isao Takahata; la versión alemana de Gitti und Erika es de las canciones en alemán más reconocibles del mundo.", id:"https://open.spotify.com/track/3sSS2OXwJYBy5XwJTTDyuy", cover:"https://artworks.thetvdb.com/banners/v4/series/82927/posters/665744d68bda0.jpg"},
+  {t:"Marco", s:"De los Apeninos a los Andes (Marco)", y:1977, n:"Anime de Nippon Animation; canción de apertura en castellano interpretada por la cantante chilena María Elena Bargagli.", id:"https://open.spotify.com/album/21gzoxt3u3eYf13qqOE6P0", cover:"https://artworks.thetvdb.com/banners/posters/122151-2.jpg"},
+  {t:"David el Gnomo", s:"David el Gnomo", y:1985, n:"Serie animada española de BRB; el opening con la voz de Cris Juanico y los enanos a caballo de zorros era inconfundible.", id:"https://open.spotify.com/track/6Gy51tM0x48Sj1knSLCy5Q", cover:"https://artworks.thetvdb.com/banners/posters/70815-9.jpg"},
+  {t:"Los Fraggle Rock", s:"Los Fraggle", y:1984, n:"Serie de marionetas de Jim Henson; opening funky con 'Gobo, Musi, Rosi, Dudo y Bombo'.", id:"https://open.spotify.com/track/5QIkpHVThnrfsK4wOOxRIP", cover:"https://artworks.thetvdb.com/banners/posters/76085-2.jpg"},
+  {t:"Ulises 31", s:"Ulises 31", y:1985, n:"Coproducción francesa-japonesa que mezclaba la Odisea con ciencia ficción; sintonía épica icónica.", id:"https://open.spotify.com/track/0zlfmgemuUUBTmlSTSHPsD", cover:"https://artworks.thetvdb.com/banners/posters/72219-5.jpg"},
+  {t:"Mazinger Z", s:"Mazinger Z", y:1978, n:"Anime de robots gigantes de Go Nagai; la sintonía '¡puños fuera!' fue de las primeras en hacer historia en TVE.", id:"https://open.spotify.com/playlist/2sQklmr11v4L1bXhqyDLjP", cover:"https://artworks.thetvdb.com/banners/posters/83609-5.jpg"},
+  {t:"Patoaventuras", s:"Patoaventuras (DuckTales)", y:1990, n:"Serie de Disney con Gilito McPato; la sintonía en castellano la cantó Mónica Capel, ex-componente de los Nins.", id:"https://open.spotify.com/track/7cHPk03M5ZVbfqXF6QFnVw", cover:"https://artworks.thetvdb.com/banners/posters/75931-5.jpg"},
+  {t:"Chip y Chop", s:"Chip y Chop: los Guardianes Rescatadores", y:1991, n:"Otra serie Disney en horario infantil; opening cantado también por Mónica Capel.", id:"https://open.spotify.com/track/3f7VlYzkPMfokla5dkqBT4", cover:"https://artworks.thetvdb.com/banners/v4/movie/144722/posters/627fb31d32f48.jpg"},
+  {t:"Comando G (La batalla de los planetas)", s:"Comando G", y:1980, n:"Una de las series más recordadas; coro 'Comando G, Comando G' inolvidable.", id:"https://open.spotify.com/track/2odDYDU24DT7oleYp5QVly", cover:"https://artworks.thetvdb.com/banners/posters/77062-2.jpg"},
+  {t:"Érase una vez... el cuerpo humano", s:"Érase una vez... el cuerpo humano", y:1989, n:"Educativa francesa de Albert Barillé; sintonía instrumental que evoca clase de Cono.", id:"https://open.spotify.com/track/4l9ptfFEiyygGqmmR9aaQk", cover:"https://artworks.thetvdb.com/banners/posters/79158-14.jpg"},
+  {t:"La llamada de los gnomos", s:"La llamada de los gnomos", y:1987, n:"Spin-off de 'David el Gnomo'; protagonizada por el juez Klaus y su ayudante Dany.", id:"https://open.spotify.com/track/1LN3naO58m1FGiArA8HBQ5", cover:"https://artworks.thetvdb.com/banners/posters/158531-2.jpg"},
+  {t:"Sailor Moon", s:"Sailor Moon", y:1993, n:"Anime mágico que marcó a una generación de niñas a principios de los 90.", id:"https://open.spotify.com/playlist/4ssNVe64tekQRsoeatDyeI", cover:"https://artworks.thetvdb.com/banners/posters/78500-8.jpg"},
+  {t:"Los Caballeros del Zodiaco (Saint Seiya)", s:"Los Caballeros del Zodiaco", y:1990, n:"Anime de los 'Santos' con armaduras; sintonía épica japonesa primero en latino y luego en castellano.", id:"https://open.spotify.com/playlist/1CBvHoxsyVgxPz5jxLypqs", cover:"https://artworks.thetvdb.com/banners/posters/72775-23.jpg"},
+  {t:"Mofli, el último koala", s:"Mofli, el último koala", y:1987, n:"Serie española del estudio EQUIP; ecologista, una niña amiga del último koala.", id:"https://open.spotify.com/track/7vCbqWQZkZsG4qQWIuMeEi", cover:"https://artworks.thetvdb.com/banners/posters/5b75b228ec166.jpg"},
+  {t:"Candy Candy", s:"Candy Candy", y:1986, n:"Anime japonés sobre una huérfana cuya melodía abrió tardes enteras en TVE; la versión española la interpretó Capri.", id:"https://open.spotify.com/playlist/0cBkTrfJUxDz3cBy1XVJKE", cover:"https://artworks.thetvdb.com/banners/movies/107380/posters/107380.jpg"},
+  {t:"Chicho Terremoto", s:"Chicho Terremoto (Dash Kappei)", y:1987, n:"Anime de baloncesto japonés con un protagonista bajito pero imparable; sintonía coreada en patios del cole.", id:"https://open.spotify.com/playlist/2sTxeG8rF7n8zLclYyWoOH", cover:"https://artworks.thetvdb.com/banners/posters/85161-2.jpg"},
+  {t:"Abracadabra (La Bola de Cristal)", s:"La Bola de Cristal", y:1984, n:"Programa infantil mítico de TVE; canción interpretada por Alaska: '¡Qué tiene esta bola que a todo el mundo le mola!'", id:"https://open.spotify.com/track/0ZwG6ttqzRJpThmgW6IDCZ", cover:"https://artworks.thetvdb.com/banners/posters/284250-1.jpg"},
+  {t:"Pumuky", s:"Pumuky (Meister Eder und sein Pumuckl)", y:1985, n:"Serie alemana sobre un duendecillo travieso creado en 1961 por Ellis Kaut; en España se emitió en TVE-1 desde 1985. Una de las primeras series en mezclar animación con imagen real.", id:"https://open.spotify.com/track/57CydMbS2cXleMHamBihlz", cover:"https://artworks.thetvdb.com/banners/posters/84596-4.jpg"},
+  {t:"Banner y Flappy", s:"Banner y Flappy (Seton Dōbutsuki Risu no Bannā)", y:1979, n:"Anime de Nippon Animation basado en cuentos de Ernest Thompson Seton; cuenta la historia de Banner, ardilla criada por una gata, y su amiga Flappy. Emitida en TVE desde diciembre de 1979.", id:"https://open.spotify.com/track/1kEfjgDcRnIaDFjX9jpdtb", cover:"https://artworks.thetvdb.com/banners/v4/series/88851/posters/664e79763b797.jpg"},
+  {t:"El Osito Misha", s:"El Osito Misha (Koguma no Misha)", y:1979, n:"Anime de Nippon Animation; el osito que fue mascota oficial de los Juegos Olímpicos de Moscú 1980 tuvo su propia serie animada que llegó a TVE en los años 80.", id:"https://open.spotify.com/track/1HLSfJ6yZedfb5qayrFcVV", cover:"https://artworks.thetvdb.com/banners/posters/259219-1.jpg"},
+  {t:"Los Diminutos", s:"Los Diminutos (The Littles)", y:1986, n:"Serie de animación franco-estadounidense (DIC Entertainment, 1983-85) sobre seres minúsculos que viven entre los humanos; en España la estrenó TVE el 6 de abril de 1986.", id:"https://open.spotify.com/track/4bjUYYsS7FsgxNAATQwtZO", cover:"https://artworks.thetvdb.com/banners/posters/71665-5.jpg"},
+  {t:"Los Aurones", s:"Los Aurones", y:1985, n:"Serie española de la sobremesa de los fines de semana de los 80; tan presente en la cultura popular que sus personajes (Poti, Gallofa) se convirtieron en motes de patio de colegio.", id:"https://open.spotify.com/album/3lH4tJJOyV5JB93BmveWRt", cover:"https://artworks.thetvdb.com/banners/posters/139621-1.jpg"},
+  {t:"Los Snorkels", s:"Los Snorkels (Snorks)", y:1986, n:"Coproducción franco-belga-estadounidense (Hanna-Barbera) sobre criaturas marinas con respiraderos en la cabeza; pinchada en las sobremesas españolas como contraparte acuática de los Pitufos.", id:"https://open.spotify.com/track/1jHNTiDF09yzrzdYakuKFo", cover:"https://artworks.thetvdb.com/banners/posters/76305-3.jpg"},
+  {t:"La vuelta al mundo de Willy Fog", s:"La vuelta al mundo de Willy Fog", y:1984, n:"Coproducción de BRB Internacional, TVE y Nippon Animation, basada en la novela de Jules Verne con animales antropomorfos. El opening y el cierre 'Sílbame' los interpretó Mocedades.", id:"https://open.spotify.com/track/4edH87LZLHm4lHm5Kzdkbv", cover:"https://artworks.thetvdb.com/banners/posters/80357-8.jpg"},
+  {t:"El Equipo A", s:"El Equipo A (The A-Team)", y:1983, n:"Serie de acción de la NBC con Hannibal, Fénix, M.A. y Murdock, exmilitares acusados injustamente y convertidos en mercenarios. Banda sonora de Mike Post; en España se emitió por TVE y luego Antena 3.", id:"https://open.spotify.com/track/3LZ3Rf6iqm4Pt0DX7EAyBn", cover:"https://artworks.thetvdb.com/banners/posters/77904-2.jpg"},
+  {t:"El Coche Fantástico", s:"El Coche Fantástico (Knight Rider)", y:1982, n:"Michael Knight (David Hasselhoff) y KITT, su Pontiac Trans Am parlante e indestructible, persiguiendo el mal en serie. Música de Stu Phillips; sintonía con sintetizadores tan reconocible como el propio coche.", id:"https://open.spotify.com/playlist/3UpORfakuurNQo25URZtW3", cover:"https://artworks.thetvdb.com/banners/posters/77216-4.jpg"},
 ];
 
 const JINGLES=[
@@ -1608,9 +1624,13 @@ function buildTV(){
     const playBtn = emb
       ? `<button class="tv-btn play" onclick="playInTop(${i})">▶ Escuchar aquí</button>`
       : "";
+    const coverStyle = s.cover
+      ? `style="background-image:url('${s.cover}')" class="tv-cover has-img"`
+      : `class="tv-cover"`;
+    const coverInner = s.cover ? "" : "📺";
     return `
     <div class="tv-card" id="tvCard-${i}" title="${s.s}">
-      <div class="tv-emoji">📺</div>
+      <div ${coverStyle} id="tvCover-${i}">${coverInner}</div>
       <div class="tv-title">${s.t}</div>
       <div class="tv-meta">${s.s} · ${s.y}</div>
       <div class="tv-note">${s.n}</div>
