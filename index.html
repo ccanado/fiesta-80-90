@@ -1008,7 +1008,9 @@ const DATA = {
     {t:"Don't You Want Me", a:"Felix", y:1992, side:"rest",
       note:"Piano rave europeo que pegó fuerte en las pistas."},
     {t:"Tetris", a:"Doctor Spin", y:1992, side:"rest",
-      note:"La melodía del Tetris en versión rave; puro guiño recreativo."}
+      note:"La melodía del Tetris en versión rave; puro guiño recreativo."},
+    {t:"Popcorn", a:"M&H Band", y:1987, side:"rest",
+      note:"Remake del clásico electrónico de 1969 lanzado por la banda francesa M&H Band en 1987; los remixes de 1988 (Butter Mix, Swedish Remix) sonaron en discotecas y sesiones de bakalao europeas."}
   ]
 };
 
@@ -1077,6 +1079,7 @@ const TRACK_IDS={
   "Self Control":"6efSiDvnrUxhUMPGssgOlV",
   "Don't You Want Me":"1pDhEcCl0d2SAQMKljdbys",
   "Tetris":"1evDbSUMze9LjlK12ARwCb",
+  "Popcorn":"2Cs2uUsUlHtaZbCewTZbEU",
   "Lady, Lady":"3K0rUw4z0khdNg4MiSIHB4",
   "Live Is Life":"7hkOgKKybgawYUcrkZD3wV",
   "The Final Countdown":"3MrRksHupTVEQ7YbA0FsZK",
@@ -1248,7 +1251,7 @@ function buildTimeline(){
   const pts=[];
   [0,1,2].forEach(g=>{
     if(tlOff[g])return;
-    DATA[g].forEach(s=>pts.push({g,...s}));
+    DATA[g].forEach(s=>{ if(s.y>=yMin && s.y<=yMax) pts.push({g,...s}); });
   });
   // contar por año para apilar
   const byYear={};
@@ -1540,6 +1543,8 @@ const SINTONIAS=[
   {t:"Sailor Moon", s:"Sailor Moon", y:1993, n:"Anime mágico que marcó a una generación de niñas a principios de los 90.", id:"https://open.spotify.com/playlist/4ssNVe64tekQRsoeatDyeI"},
   {t:"Los Caballeros del Zodiaco (Saint Seiya)", s:"Los Caballeros del Zodiaco", y:1990, n:"Anime de los 'Santos' con armaduras; sintonía épica japonesa primero en latino y luego en castellano.", id:"https://open.spotify.com/playlist/1CBvHoxsyVgxPz5jxLypqs"},
   {t:"Mofli, el último koala", s:"Mofli, el último koala", y:1987, n:"Serie española del estudio EQUIP; ecologista, una niña amiga del último koala.", id:"https://open.spotify.com/track/7vCbqWQZkZsG4qQWIuMeEi"},
+  {t:"Candy Candy", s:"Candy Candy", y:1986, n:"Anime japonés sobre una huérfana cuya melodía abrió tardes enteras en TVE; la versión española la interpretó Capri.", id:"https://open.spotify.com/playlist/0cBkTrfJUxDz3cBy1XVJKE"},
+  {t:"Chicho Terremoto", s:"Chicho Terremoto (Dash Kappei)", y:1987, n:"Anime de baloncesto japonés con un protagonista bajito pero imparable; sintonía coreada en patios del cole.", id:"https://open.spotify.com/playlist/2sTxeG8rF7n8zLclYyWoOH"},
   {t:"Abracadabra (La Bola de Cristal)", s:"La Bola de Cristal", y:1984, n:"Programa infantil mítico de TVE; canción interpretada por Alaska: '¡Qué tiene esta bola que a todo el mundo le mola!'", id:"https://open.spotify.com/track/0ZwG6ttqzRJpThmgW6IDCZ"},
 ];
 
