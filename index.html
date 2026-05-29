@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiesta 80·90 — Feliz Medio Siglo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Audiowide&family=Press+Start+2P&family=Caveat:wght@500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0118;
+    --bg2:#1a0533;
+    --neon-pink:#ff2e93;
+    --neon-cyan:#00f0ff;
+    --neon-yellow:#ffe600;
+    --neon-purple:#b14aff;
+    --neon-orange:#ff7a18;
+    --ink:#f4ecff;
+    --card:rgba(255,255,255,.04);
+    --line:rgba(255,255,255,.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Outfit',sans-serif;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(177,74,255,.25), transparent 45%),
+      radial-gradient(circle at 85% 20%, rgba(0,240,255,.20), transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(255,46,147,.22), transparent 50%),
+      linear-gradient(180deg,var(--bg),var(--bg2) 60%, #050010);
+    background-attachment:fixed;
+    color:var(--ink);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  /* rejilla retro de fondo */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,46,147,.06) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(0,240,255,.06) 1px,transparent 1px);
+    background-size:42px 42px;
+    mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);
+  }
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 18px 80px}
+
+  /* ===== CABECERA ===== */
+  header{padding:64px 12px 30px;text-align:center;position:relative}
+  .sun{
+    width:300px;height:300px;border-radius:50%;
+    position:absolute;top:24px;left:50%;transform:translateX(-50%);z-index:0;
+    background:linear-gradient(180deg,var(--neon-yellow),var(--neon-orange) 45%,var(--neon-pink));
+    filter:blur(2px);opacity:.55;
+    mask-image:repeating-linear-gradient(180deg,#000 0 14px,transparent 14px 20px);
+    -webkit-mask-image:repeating-linear-gradient(180deg,#000 0 14px,transparent 14px 20px);
+    animation:pulse 5s ease-in-out infinite;pointer-events:none;
+  }
+  @keyframes pulse{50%{filter:blur(6px);opacity:.7}}
+  h1{
+    position:relative;z-index:1;
+    font-family:'Monoton',cursive;font-weight:400;line-height:1;
+    font-size:clamp(2.6rem,9vw,5.6rem);
+    background:linear-gradient(90deg,var(--neon-cyan),var(--neon-pink),var(--neon-yellow));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 40px rgba(10,1,24,.9), 0 0 18px rgba(255,46,147,.5);
+    letter-spacing:2px;margin-top:90px;
+  }
+  .sub,.phrases{position:relative;z-index:1}
+  .sub{font-family:'Audiowide',sans-serif;font-size:clamp(1rem,3vw,1.5rem);
+    color:var(--neon-cyan);margin-top:14px;letter-spacing:4px;text-transform:uppercase}
+  .phrases{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:30px auto 0;max-width:760px}
+  .phrases span{
+    font-family:'Audiowide',sans-serif;font-size:.82rem;letter-spacing:1px;
+    padding:9px 16px;border-radius:40px;border:1px solid var(--line);
+    background:var(--card);backdrop-filter:blur(6px);
+    animation:flick 6s linear infinite;
+  }
+  .phrases span:nth-child(1){color:var(--neon-yellow);box-shadow:0 0 18px rgba(255,230,0,.25)}
+  .phrases span:nth-child(2){color:var(--neon-cyan);animation-delay:.5s}
+  .phrases span:nth-child(3){color:var(--neon-pink);box-shadow:0 0 18px rgba(255,46,147,.25);animation-delay:1s}
+  .phrases span:nth-child(4){color:var(--neon-purple);animation-delay:1.5s}
+  .phrases span:nth-child(5){color:var(--neon-orange);animation-delay:2s}
+  .phrases span:nth-child(6){color:var(--neon-cyan);animation-delay:2.5s}
+  @keyframes flick{0%,97%,100%{opacity:1}98%{opacity:.55}}
+
+  /* ===== SECCIONES ===== */
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    padding:24px;margin-top:32px;backdrop-filter:blur(8px);
+    box-shadow:0 20px 60px rgba(0,0,0,.4);
+  }
+  .panel-title{font-family:'Audiowide',sans-serif;font-size:1.1rem;letter-spacing:2px;
+    text-transform:uppercase;color:var(--neon-cyan);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+  .panel-title::before{content:"◆";color:var(--neon-pink)}
+  .hint{font-size:.85rem;color:rgba(244,236,255,.6);margin-bottom:18px}
+
+  /* ===== REPRODUCTOR ALEATORIO ===== */
+  .player{display:grid;grid-template-columns:120px 2fr 1fr;gap:20px;align-items:center}
+  @media (max-width:720px){.player{grid-template-columns:120px 1fr}.player .rnd-player{grid-column:1/-1}}
+  .cover{
+    width:120px;height:120px;border-radius:14px;overflow:hidden;position:relative;flex-shrink:0;
+    background:linear-gradient(135deg,var(--neon-purple),var(--neon-pink));
+    background-size:cover;background-position:center;background-repeat:no-repeat;
+    box-shadow:0 0 30px rgba(177,74,255,.5);
+  }
+  .cover img{width:100%;height:100%;object-fit:cover;display:block}
+  .cover .vinyl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:'Monoton',cursive;font-size:.6rem;color:rgba(255,255,255,.7);text-align:center;padding:8px}
+  .pinfo h3{font-family:'Audiowide',sans-serif;font-size:1.25rem;color:var(--neon-yellow);line-height:1.2}
+  .pinfo .artist{font-size:1rem;color:var(--ink);margin:3px 0}
+  .pinfo .year{display:inline-block;font-family:'Audiowide',sans-serif;font-size:.75rem;
+    color:var(--neon-cyan);border:1px solid var(--neon-cyan);border-radius:20px;padding:2px 12px;margin-top:6px}
+  .pinfo .note{font-size:.85rem;color:rgba(244,236,255,.75);margin-top:10px;line-height:1.45}
+  .rnd-player{border-radius:12px;overflow:hidden;border:1px solid var(--line);
+    background:rgba(29,185,84,.05);transition:.25s;align-self:stretch;display:flex;flex-direction:column;justify-content:center;min-height:100px}
+  .rnd-player.active{border-color:#1db954;box-shadow:0 0 20px rgba(29,185,84,.2)}
+  .rnd-player iframe{width:100%;height:0;border:0;display:block;transition:height .3s ease}
+  .rnd-player.active iframe{height:152px}
+  .rnd-player .rnd-msg{padding:14px;font-size:.82rem;color:rgba(244,236,255,.55);display:none;text-align:center}
+  .rnd-player.unavailable .rnd-msg{display:block}
+  .rnd-player:not(.active):not(.unavailable)::before{content:"🎵 Pulsa Otra al azar";display:block;
+    padding:14px;text-align:center;font-family:'Audiowide',sans-serif;font-size:.75rem;letter-spacing:1px;
+    color:rgba(244,236,255,.4)}
+
+  /* ===== Reproductor por sección (Vinilo, Nº1) ===== */
+  .sec-player{margin:0 0 14px;border-radius:12px;overflow:hidden;border:1px solid var(--line);
+    background:rgba(29,185,84,.05);transition:.25s}
+  .sec-player.active{border-color:#1db954;box-shadow:0 0 20px rgba(29,185,84,.2)}
+  .sec-player .sp-head{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:.85rem;
+    color:rgba(244,236,255,.7)}
+  .sec-player .sp-head .sp-ico{font-size:1.1rem}
+  .sec-player .sp-head .sp-now{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sec-player .sp-head .sp-now b{color:var(--neon-yellow)}
+  .sec-player iframe{width:100%;height:0;border:0;display:block;transition:height .3s ease}
+  .sec-player.active iframe{height:80px}
+  .sec-player .sp-msg{padding:0 14px 12px;font-size:.78rem;color:rgba(244,236,255,.55);display:none}
+  .sec-player.unavailable .sp-msg{display:block}
+
+  /* tarjeta nº1 activa */
+  .age-card.playing{border-color:#1db954;background:linear-gradient(160deg,rgba(29,185,84,.18),rgba(177,74,255,.04))}
+  .controls{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .btn{
+    font-family:'Audiowide',sans-serif;font-size:.78rem;letter-spacing:1px;cursor:pointer;
+    border:none;border-radius:30px;padding:11px 20px;color:#0a0118;
+    background:linear-gradient(90deg,var(--neon-cyan),var(--neon-pink));
+    transition:transform .15s, box-shadow .15s;text-decoration:none;display:inline-flex;align-items:center;gap:7px;
+  }
+  .btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 8px 24px rgba(255,46,147,.4)}
+  .btn.alt{background:transparent;color:var(--neon-cyan);border:1px solid var(--neon-cyan)}
+  .btn.spotify{background:#1db954;color:#fff}
+
+  /* ===== PESTAÑAS ===== */
+  .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .tab{
+    font-family:'Audiowide',sans-serif;font-size:.74rem;letter-spacing:1px;cursor:pointer;
+    border:1px solid var(--line);border-radius:30px;padding:10px 16px;
+    background:var(--card);color:rgba(244,236,255,.7);transition:.2s;text-transform:uppercase;
+  }
+  .tab.active{color:#0a0118;border-color:transparent}
+  .tab[data-t="0"].active{background:var(--neon-cyan)}
+  .tab[data-t="1"].active{background:var(--neon-pink)}
+  .tab[data-t="2"].active{background:var(--neon-yellow)}
+  .tabpane{display:none;animation:fade .4s}
+  .tabpane.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+
+  /* ===== ACORDEONES POR GRUPO ===== */
+  .acc{margin:14px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.02)}
+  .acc-head{width:100%;display:flex;align-items:center;gap:12px;cursor:pointer;
+    background:rgba(255,255,255,.03);border:none;padding:13px 16px;text-align:left;
+    font-family:'Audiowide',sans-serif;font-size:.82rem;letter-spacing:1px;color:var(--ink);transition:.2s}
+  .acc-head:hover{background:rgba(255,255,255,.06)}
+  .acc-head .acc-title{flex:1;display:flex;align-items:center;gap:9px}
+  .acc-head .acc-title::before{content:"";width:24px;height:2px;background:var(--neon-orange);flex-shrink:0}
+  .acc-head.b .acc-title{color:var(--neon-purple)} .acc-head.b .acc-title::before{background:var(--neon-purple)}
+  .acc-head:not(.b):not(.rest) .acc-title{color:var(--neon-orange)}
+  .acc-head.rest .acc-title{color:rgba(244,236,255,.6)} .acc-head.rest .acc-title::before{background:rgba(244,236,255,.35)}
+  .acc-head .acc-meta{font-size:.68rem;color:rgba(244,236,255,.45);letter-spacing:0}
+  .acc-head .acc-arrow{font-size:.9rem;color:rgba(244,236,255,.5);transition:transform .3s}
+  .acc.open .acc-head .acc-arrow{transform:rotate(180deg)}
+  .acc-body{display:none;padding:6px 8px 10px}
+  .acc.open .acc-body{display:block;animation:accfade .35s ease}
+  @keyframes accfade{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+  .track{
+    display:flex;align-items:center;gap:14px;padding:11px 12px;border-radius:12px;
+    cursor:pointer;transition:.18s;border:1px solid transparent;
+  }
+  .track:hover{background:rgba(255,255,255,.05);border-color:var(--line);transform:translateX(4px)}
+  .track .num{font-family:'Audiowide',sans-serif;font-size:.8rem;color:var(--neon-pink);width:26px;flex-shrink:0}
+  .track .mini{width:42px;height:42px;border-radius:8px;flex-shrink:0;object-fit:cover;
+    background-size:cover;background-position:center;background-repeat:no-repeat;
+    background-image:linear-gradient(135deg,var(--neon-purple),var(--neon-cyan))}
+  .track .tx{flex:1;min-width:0}
+  .track .tx b{font-weight:600;font-size:.98rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .track .tx small{color:rgba(244,236,255,.55);font-size:.8rem}
+  .track .yr{font-family:'Audiowide',sans-serif;font-size:.72rem;color:var(--neon-cyan);flex-shrink:0}
+  .track.iconic .num{color:var(--neon-yellow)}
+
+  /* detalle desplegable */
+  .detail{grid-column:1/-1;padding:0 12px;max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .detail.open{max-height:400px}
+  .detail-in{padding:14px 16px;margin:6px 0 4px;border-left:3px solid var(--neon-pink);
+    background:rgba(255,46,147,.06);border-radius:0 12px 12px 0;font-size:.9rem;line-height:1.5}
+  .detail-in .lbl{font-family:'Audiowide',sans-serif;font-size:.7rem;color:var(--neon-cyan);letter-spacing:1px;display:block;margin-bottom:6px}
+  .detail-in .gandia{margin-top:10px;color:var(--neon-yellow);font-size:.88rem}
+  .detail-in .gandia::before{content:"🌴 ";}
+  .detail-in a{color:var(--neon-cyan);text-decoration:none;font-weight:600}
+  .detail-in a:hover{text-decoration:underline}
+
+  /* extras */
+  .extras-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:6px}
+  .ex{padding:16px;border:1px dashed var(--line);border-radius:14px;background:rgba(255,255,255,.02)}
+  .ex h4{font-family:'Audiowide',sans-serif;font-size:.85rem;color:var(--neon-yellow);margin-bottom:6px}
+  .ex p{font-size:.85rem;color:rgba(244,236,255,.7);line-height:1.45}
+  .timer{font-family:'Monoton',cursive;font-size:2rem;color:var(--neon-cyan);text-align:center;margin:4px 0}
+  footer{text-align:center;margin-top:50px;font-family:'Audiowide',sans-serif;
+    font-size:.78rem;color:rgba(244,236,255,.4);letter-spacing:2px}
+  .legend{font-size:.78rem;color:rgba(244,236,255,.55);margin-bottom:14px;display:flex;gap:18px;flex-wrap:wrap}
+  .legend i{font-style:normal}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
+  .dy{background:var(--neon-yellow)} .dp{background:var(--neon-purple)} .dr{background:rgba(244,236,255,.4)}
+
+  /* ===== PLAYLIST EMBED ===== */
+  .spwrap{border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 0 30px rgba(29,185,84,.25)}
+  .spwrap iframe{display:block;width:100%;border:0}
+  .pl-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+
+  /* ===== TIMELINE SVG ===== */
+  .tl-legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:14px;font-size:.8rem}
+  .tl-legend i{font-style:normal;display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none;
+    padding:5px 12px;border-radius:20px;border:1px solid var(--line);transition:.2s}
+  .tl-legend i.off{opacity:.32}
+  .tl-scroll{overflow-x:auto;overflow-y:hidden;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+  #timeline{display:block;min-width:860px}
+  .tl-dot{cursor:pointer;transition:r .15s, opacity .2s}
+  .tl-dot:hover{filter:brightness(1.3)}
+  .tl-axis{stroke:rgba(244,236,255,.25);stroke-width:1}
+  .tl-year{fill:var(--neon-cyan);font-family:'Audiowide',sans-serif;font-size:13px;text-anchor:middle}
+  .tl-tip{font-family:'Outfit',sans-serif;pointer-events:none;opacity:0;transition:opacity .15s}
+  .tl-tip rect{fill:#120024;stroke:var(--neon-pink);stroke-width:1.5;rx:8}
+  .tl-tip .tt{fill:var(--neon-yellow);font-size:13px;font-weight:700}
+  .tl-tip .ta{fill:#f4ecff;font-size:11px}
+  .tl-count{font-family:'Audiowide',sans-serif;font-size:.78rem;color:rgba(244,236,255,.55);margin-top:8px}
+
+  /* ===== INVITACIÓN ARCADE ===== */
+  .inv-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+  /* Selector de estilo */
+  .inv-styles{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:18px}
+  .inv-style{font-family:'Audiowide',sans-serif;font-size:.74rem;letter-spacing:1px;cursor:pointer;
+    border:1px solid var(--line);border-radius:30px;padding:9px 18px;
+    background:var(--card);color:rgba(244,236,255,.7);transition:.2s;text-transform:uppercase}
+  .inv-style.active{color:#0a0118;border-color:transparent;background:linear-gradient(90deg,var(--neon-cyan),var(--neon-pink))}
+  .inv-stage{display:none;animation:fade .3s}
+  .inv-stage.active{display:block}
+
+  /* ---- POSTAL NEÓN (estilo original) ---- */
+  .postcard{max-width:520px;margin:0 auto;aspect-ratio:5/7;border-radius:18px;position:relative;overflow:hidden;
+    background:radial-gradient(circle at 50% 22%, rgba(255,230,0,.35), transparent 40%),
+      linear-gradient(180deg,#1a0533,#3b0a52 55%,#7a0f4a);
+    border:2px solid var(--neon-pink);box-shadow:0 0 50px rgba(255,46,147,.45);
+    padding:28px 26px;display:flex;flex-direction:column;align-items:center;text-align:center;color:#fff}
+  .postcard::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:linear-gradient(rgba(0,240,255,.07) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,46,147,.07) 1px,transparent 1px);
+    background-size:30px 30px;mask-image:linear-gradient(180deg,transparent,#000 40%,transparent)}
+  .postcard .psun{width:120px;height:120px;border-radius:50%;
+    background:linear-gradient(180deg,var(--neon-yellow),var(--neon-orange) 50%,var(--neon-pink));
+    mask-image:repeating-linear-gradient(180deg,#000 0 9px,transparent 9px 13px);
+    -webkit-mask-image:repeating-linear-gradient(180deg,#000 0 9px,transparent 9px 13px);margin-bottom:4px}
+  .postcard h2{font-family:'Monoton',cursive;font-weight:400;font-size:2.2rem;line-height:1;
+    background:linear-gradient(90deg,var(--neon-cyan),var(--neon-yellow));
+    -webkit-background-clip:text;background-clip:text;color:transparent;z-index:1}
+  .postcard .p50{font-family:'Monoton',cursive;font-size:4.2rem;color:var(--neon-yellow);line-height:.9;margin:4px 0;
+    text-shadow:0 0 24px rgba(255,230,0,.6);z-index:1}
+  .postcard .pname{font-family:'Audiowide',sans-serif;font-size:1.05rem;letter-spacing:2px;color:var(--neon-cyan);
+    margin-bottom:8px;z-index:1}
+  .postcard .pmeta{font-family:'Outfit',sans-serif;font-size:.92rem;line-height:1.55;color:rgba(255,255,255,.95);z-index:1}
+  .postcard .pmeta b{color:var(--neon-yellow)}
+  .postcard .pmeta .place{font-family:'Audiowide',sans-serif;letter-spacing:1px;color:var(--neon-cyan);font-size:1.05rem}
+  .postcard .piqr{margin-top:14px;display:flex;flex-direction:column;align-items:center;gap:5px;z-index:1}
+  .postcard .piqr img{width:74px;height:74px;border-radius:8px;border:3px solid var(--neon-cyan);background:#fff;padding:2px;
+    box-shadow:0 0 14px rgba(0,240,255,.5)}
+  .postcard .piqr span{font-family:'Audiowide',sans-serif;font-size:.55rem;letter-spacing:1px;color:var(--neon-cyan)}
+  .postcard .pfoot{margin-top:auto;font-family:'Audiowide',sans-serif;font-size:.62rem;letter-spacing:1px;
+    color:rgba(255,255,255,.6);z-index:1}
+
+  /* ---- CASSETTE TDK (rediseñado) ---- */
+  .cassette{max-width:560px;margin:0 auto;aspect-ratio:7/4.2;border-radius:8px;position:relative;
+    background:
+      linear-gradient(180deg,#3a3a3a 0%,#5a5a5a 8%,#dadada 16%,#f4f4f4 50%,#bababa 92%,#5a5a5a 100%);
+    border:1px solid #1a1a1a;
+    box-shadow:0 18px 36px rgba(0,0,0,.55), inset 0 2px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25);
+    padding:18px 22px 0;display:flex;flex-direction:column}
+  /* Reflejo superior del plástico */
+  .cassette::before{content:"";position:absolute;top:0;left:8%;right:8%;height:6px;
+    background:linear-gradient(180deg,rgba(255,255,255,.7),transparent);border-radius:8px 8px 0 0;pointer-events:none}
+  /* Pegatina */
+  .cassette .label{flex:1;background:#fdfdfd;border-radius:3px;padding:0;position:relative;
+    color:#1a1a1a;box-shadow:inset 0 0 0 1px #d6d3cb, 0 1px 2px rgba(0,0,0,.15);
+    display:flex;flex-direction:column;overflow:hidden;min-height:0}
+  /* Banda roja diagonal arriba */
+  .cassette .label::before{content:"";position:absolute;top:0;left:0;right:0;height:34px;
+    background:linear-gradient(180deg,#e02030 0%,#c2001a 60%,#9b0018 100%);
+    box-shadow:0 2px 4px rgba(0,0,0,.15)}
+  /* Cabecera de la pegatina */
+  .cassette .lhead{position:relative;height:34px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 12px;z-index:1;color:#fff}
+  .cassette .lhead .tdk{font-family:'Audiowide',sans-serif;font-size:1.25rem;font-weight:700;
+    letter-spacing:3px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+  .cassette .lhead .ref{font-family:'Outfit',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:2px;
+    color:#fff;opacity:.9}
+  .cassette .lside{font-family:'Audiowide',sans-serif;font-size:.7rem;font-weight:700;
+    color:#c2001a;background:#fff;border:1.5px solid #c2001a;padding:1px 9px;border-radius:2px;letter-spacing:1px}
+  /* Área de escritura con líneas finas */
+  .cassette .lbody{flex:1;padding:14px 18px 8px;position:relative;min-height:0;
+    background-image:repeating-linear-gradient(0deg,transparent 0 19px,rgba(0,0,0,.06) 19px 20px)}
+  .cassette .ctitle{font-family:'Caveat','Bradley Hand',cursive;font-weight:700;font-size:2rem;line-height:1;
+    color:#1a1a4a;text-align:center;transform:rotate(-1.5deg);margin-top:2px}
+  .cassette .cname{font-family:'Caveat','Bradley Hand',cursive;font-weight:700;font-size:1.65rem;
+    color:#c2001a;text-align:center;transform:rotate(-1deg);margin-top:2px;line-height:1.1}
+  .cassette .cmeta{font-family:'Caveat','Bradley Hand',cursive;font-size:1.15rem;color:#222;
+    text-align:center;line-height:1.35;margin-top:8px;transform:rotate(-0.5deg)}
+  .cassette .cmeta .lugar{color:#1a1a4a;font-weight:700;font-size:1.35rem;display:block}
+  .cassette .cmeta .addr{color:#444;font-size:1rem;display:block;margin-bottom:4px}
+  .cassette .cmeta .fecha{font-weight:700}
+  .cassette .cmeta .barra{color:#c2001a;font-weight:700;display:block;margin-top:4px}
+  /* Mecánica con dos ventanas redondas */
+  .cassette .mech{height:74px;margin:10px -22px 0;padding:8px 26px;
+    background:linear-gradient(180deg,#3a3a3a 0%,#1a1a1a 50%,#000 100%);
+    border-top:1px solid #1a1a1a;
+    box-shadow:inset 0 3px 6px rgba(0,0,0,.6), inset 0 -1px 0 rgba(255,255,255,.05);
+    position:relative;display:flex;align-items:center;justify-content:space-between;
+    border-radius:0 0 8px 8px}
+  /* "Pines" de la cabeza lectora */
+  .cassette .mech::before,.cassette .mech::after{content:"";position:absolute;bottom:6px;width:8px;height:14px;
+    background:linear-gradient(180deg,#888,#222);border-radius:2px;box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
+  .cassette .mech::before{left:34%}
+  .cassette .mech::after{left:60%}
+  /* Ventana circular del cassette donde se ve la bobina */
+  .cassette .window{width:56px;height:56px;border-radius:50%;
+    background:radial-gradient(circle at 50% 40%,#f4f4f4 0%,#cfcfcf 60%,#888 100%);
+    box-shadow:inset 0 0 0 2px #2a2a2a, inset 0 4px 8px rgba(0,0,0,.4), 0 1px 2px rgba(255,255,255,.15);
+    position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  /* Bobina dentro de la ventana */
+  .cassette .reel{width:38px;height:38px;border-radius:50%;
+    background:
+      radial-gradient(circle at 50% 50%,#1a1a1a 0 5px,transparent 5px 7px,#1a1a1a 7px 18px,#0a0a0a 18px);
+    border:1px solid #000;position:relative;
+    animation:reel 12s linear infinite;
+    box-shadow:0 0 0 1px rgba(255,255,255,.05) inset, 0 2px 3px rgba(0,0,0,.4)}
+  /* Agujeros radiales de la bobina */
+  .cassette .reel::before{content:"";position:absolute;inset:5px;border-radius:50%;
+    background:repeating-conic-gradient(transparent 0 30deg,#2a2a2a 30deg 36deg);
+    mask:radial-gradient(circle,transparent 0 4px,#000 4px 100%);
+    -webkit-mask:radial-gradient(circle,transparent 0 4px,#000 4px 100%)}
+  /* Eje central hexagonal típico */
+  .cassette .reel::after{content:"";position:absolute;top:50%;left:50%;width:8px;height:8px;
+    background:#888;transform:translate(-50%,-50%);clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%)}
+  @keyframes reel{to{transform:rotate(360deg)}}
+  /* Cinta marrón visible entre las dos bobinas */
+  .cassette .tape{position:absolute;bottom:18px;left:21%;right:21%;height:3px;
+    background:linear-gradient(180deg,#6b3a14 0%,#4a2308 50%,#3a1a04 100%);
+    box-shadow:0 0 3px rgba(0,0,0,.5)}
+  /* QR */
+  .cassette .cqr{position:absolute;top:6px;right:8px;display:flex;flex-direction:column;align-items:center;gap:2px;z-index:2}
+  .cassette .cqr img{width:48px;height:48px;border-radius:3px;border:1.5px solid #1a1a4a;background:#fff;padding:1px;
+    box-shadow:0 1px 3px rgba(0,0,0,.3)}
+  .cassette .cqr span{font-family:'Caveat','Bradley Hand',cursive;font-weight:700;font-size:.8rem;color:#1a1a4a;line-height:1}
+
+  .arcade{max-width:520px;margin:0 auto;position:relative;padding:18px 20px 0}
+  /* Marco lateral de la recreativa */
+  .arcade::before,.arcade::after{content:"";position:absolute;top:30px;bottom:80px;width:14px;
+    background:linear-gradient(180deg,#5b1d8a,#2a0a4a);border-radius:8px;box-shadow:inset 0 0 8px rgba(0,0,0,.6)}
+  .arcade::before{left:0} .arcade::after{right:0}
+  /* La "pantalla" de la máquina */
+  .invite{
+    position:relative;border-radius:14px;padding:22px 22px 26px;color:#fff;text-align:center;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(0,200,255,.18), transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(255,46,147,.18), transparent 45%),
+      linear-gradient(180deg,#0d0033 0%,#1a0855 60%,#2b0a6b 100%);
+    border:3px solid #ff2e93;
+    box-shadow:0 0 24px rgba(255,46,147,.4), inset 0 0 24px rgba(0,0,0,.4);
+    overflow:hidden;
+  }
+  /* Efecto pantalla CRT */
+  .invite::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);opacity:.55}
+  /* Esquina HUD tipo recreativa */
+  .arc-hud{position:absolute;top:14px;left:18px;text-align:left;font-family:'Press Start 2P',monospace;
+    font-size:.55rem;line-height:1.7;color:var(--neon-yellow);text-shadow:0 0 6px rgba(255,230,0,.5);z-index:2}
+  .arc-hud .v{color:var(--neon-cyan)}
+  /* Marquesina superior */
+  .arc-top{height:18px;margin:0 22px;background:linear-gradient(180deg,#ff2e93,#b14aff);
+    border-radius:14px 14px 0 0;box-shadow:0 0 12px rgba(255,46,147,.6);position:relative;z-index:1}
+  .arc-top::before{content:"";position:absolute;top:5px;left:50%;transform:translateX(-50%);
+    width:60%;height:5px;background:rgba(255,255,255,.4);border-radius:3px;filter:blur(2px)}
+  /* Textos principales */
+  .invite h2{font-family:'Press Start 2P',monospace;font-weight:400;
+    font-size:1.4rem;margin-top:34px;line-height:1.2;
+    background:linear-gradient(180deg,#ff8df0,#ff2e93);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 18px rgba(255,46,147,.45)}
+  .invite .lvl{font-family:'Press Start 2P',monospace;font-size:1.1rem;color:var(--neon-cyan);
+    margin-top:8px;text-shadow:0 0 10px rgba(0,240,255,.5);line-height:1.3}
+  .invite .lvl small{display:block;font-size:.62rem;color:var(--neon-yellow);
+    letter-spacing:1px;margin-top:6px}
+  .invite .i50-wrap{display:flex;align-items:center;justify-content:center;gap:18px;margin:14px 0 6px}
+  .invite .i50-icon{font-size:1.8rem;filter:drop-shadow(0 0 8px var(--neon-yellow))}
+  .invite .i50{font-family:'Press Start 2P',monospace;font-size:4.6rem;color:var(--neon-yellow);
+    line-height:1;text-shadow:0 0 22px rgba(255,230,0,.6), 4px 4px 0 #c1971a;
+    -webkit-text-stroke:1px #7a5b00}
+  /* Bloque "DEKADA" */
+  .invite .venue{margin-top:14px;font-family:'Press Start 2P',monospace;font-size:1.05rem;
+    color:var(--neon-yellow);text-shadow:0 0 10px rgba(255,230,0,.45);letter-spacing:1px}
+  .invite .addr{font-family:'Audiowide',sans-serif;font-size:.78rem;letter-spacing:1px;
+    color:var(--neon-cyan);margin-top:6px;text-shadow:0 0 6px rgba(0,240,255,.4)}
+  .invite hr.arc-sep{margin:16px 30px 12px;border:0;border-top:1px dashed rgba(255,255,255,.18)}
+  .invite .when{font-family:'Press Start 2P',monospace;font-size:.95rem;color:#ff8df0;line-height:1.5;
+    text-shadow:0 0 10px rgba(255,46,147,.4)}
+  .invite .hrs{font-family:'Press Start 2P',monospace;font-size:.85rem;color:var(--neon-cyan);margin-top:6px;
+    text-shadow:0 0 8px rgba(0,240,255,.4)}
+  .invite .barra{margin-top:14px;font-family:'Press Start 2P',monospace;font-size:1rem;
+    color:var(--neon-yellow);text-shadow:0 0 12px rgba(255,230,0,.5);letter-spacing:1px;
+    animation:blink 1.4s steps(2,jump-none) infinite}
+  @keyframes blink{50%{opacity:.55}}
+  /* QR */
+  .invite .iqr{margin-top:14px;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;z-index:2}
+  .invite .iqr img{width:80px;height:80px;border-radius:8px;border:3px solid var(--neon-cyan);background:#fff;padding:2px;
+    box-shadow:0 0 14px rgba(0,240,255,.5)}
+  .invite .iqr span{font-family:'Press Start 2P',monospace;font-size:.5rem;letter-spacing:1px;color:var(--neon-cyan)}
+  /* Botonera inferior tipo arcade */
+  .arc-buttons{display:flex;justify-content:space-around;align-items:center;gap:8px;
+    background:linear-gradient(180deg,#3b1066,#1a0533);
+    border:3px solid #b14aff;border-top:none;border-radius:0 0 14px 14px;padding:14px 18px 16px;margin:0 22px;
+    box-shadow:0 6px 16px rgba(0,0,0,.5)}
+  .arc-btn{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1}
+  .arc-btn .knob{width:44px;height:44px;border-radius:50%;position:relative;
+    box-shadow:inset -4px -6px 8px rgba(0,0,0,.45), inset 4px 4px 8px rgba(255,255,255,.4), 0 3px 6px rgba(0,0,0,.4)}
+  .arc-btn .knob::after{content:"";position:absolute;top:6px;left:9px;width:14px;height:9px;
+    background:rgba(255,255,255,.55);border-radius:50%;filter:blur(1px)}
+  .arc-btn.r .knob{background:radial-gradient(circle at 35% 35%,#ff7a8a,#cc0026)}
+  .arc-btn.b .knob{background:radial-gradient(circle at 35% 35%,#7ac8ff,#0a4fcc)}
+  .arc-btn.y .knob{background:radial-gradient(circle at 35% 35%,#ffe989,#d99800)}
+  .arc-btn .lbl{font-family:'Press Start 2P',monospace;font-size:.55rem;color:#fff;letter-spacing:1px}
+  /* Editor */
+  .inv-edit{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;justify-content:center}
+  .inv-edit input{font-family:'Outfit',sans-serif;background:rgba(255,255,255,.06);border:1px solid var(--line);
+    border-radius:8px;padding:8px 12px;color:#fff;font-size:.85rem;min-width:160px}
+  .inv-edit input:focus{outline:none;border-color:var(--neon-cyan)}
+
+  /* ===== JUEGO ADIVINA ===== */
+  .quiz{text-align:center;padding:8px 0}
+  .qz-score{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;
+    font-family:'Audiowide',sans-serif;font-size:.78rem;color:rgba(244,236,255,.7)}
+  .qz-score b{color:var(--neon-yellow);font-size:1rem}
+  .qz-steps{display:flex;flex-direction:column;gap:8px;max-width:560px;margin:0 auto 14px}
+  .qz-step{font-size:.95rem;line-height:1.5;padding:9px 14px;border-radius:10px;text-align:left;
+    background:rgba(0,240,255,.06);border-left:3px solid var(--neon-cyan);animation:fade .4s}
+  .qz-step .n{font-family:'Audiowide',sans-serif;font-size:.7rem;color:var(--neon-cyan);letter-spacing:1px;display:block;margin-bottom:2px}
+  .qz-step b{color:var(--neon-yellow)}
+  .quiz .clue{font-size:.95rem;line-height:1.5;color:rgba(244,236,255,.55);margin:6px auto 4px;max-width:560px}
+  .quiz .reveal{font-family:'Audiowide',sans-serif;font-size:1.3rem;color:var(--neon-pink);
+    margin:14px 0 6px;min-height:1.2em;text-shadow:0 0 18px rgba(255,46,147,.4)}
+  .quiz .reveal small{display:block;font-size:.9rem;color:var(--ink);margin-top:4px;font-family:'Outfit',sans-serif}
+  .quiz-controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+
+  /* ===== Nº1 POR EDAD ===== */
+  .age-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:6px}
+  .age-card{position:relative;padding:16px 14px;border-radius:14px;border:1px solid var(--line);
+    background:linear-gradient(160deg,rgba(177,74,255,.10),rgba(0,240,255,.05));overflow:hidden;
+    cursor:pointer;transition:.2s;text-decoration:none;color:inherit;display:block}
+  .age-card:hover{transform:translateY(-3px);border-color:var(--neon-cyan);box-shadow:0 10px 30px rgba(0,240,255,.18)}
+  .age-card .yr{font-family:'Audiowide',sans-serif;font-size:.78rem;color:var(--neon-cyan);letter-spacing:1px}
+  .age-card .age{font-family:'Monoton',cursive;font-size:2.4rem;line-height:1;color:var(--neon-yellow);
+    margin:4px 0 2px;text-shadow:0 0 16px rgba(255,230,0,.4)}
+  .age-card .age small{font-family:'Outfit',sans-serif;font-size:.7rem;color:rgba(244,236,255,.6);display:block;letter-spacing:0}
+  .age-card .song{font-weight:600;font-size:.95rem;margin-top:8px;line-height:1.25}
+  .age-card .art{font-size:.8rem;color:rgba(244,236,255,.6)}
+  .age-card.hl{border-color:var(--neon-pink);background:linear-gradient(160deg,rgba(255,46,147,.18),rgba(255,230,0,.06))}
+  .age-card.hl .age{color:var(--neon-pink)}
+  .age-card .tag16{position:absolute;top:8px;right:8px;font-family:'Audiowide',sans-serif;font-size:.58rem;
+    background:var(--neon-pink);color:#fff;padding:3px 7px;border-radius:20px;letter-spacing:1px}
+
+  /* ===== TV DE AQUELLA ÉPOCA ===== */
+  .tv-sub{font-family:'Audiowide',sans-serif;font-size:.85rem;letter-spacing:2px;
+    color:var(--neon-cyan);margin:18px 0 12px;display:flex;align-items:center;gap:10px;text-transform:uppercase}
+  .tv-sub::before{content:"";width:30px;height:2px;background:var(--neon-cyan)}
+  .tv-sub.jingles{color:var(--neon-yellow)} .tv-sub.jingles::before{background:var(--neon-yellow)}
+  .tv-grid-wrap{position:relative}
+  .tv-grid-wrap::after{content:"";position:absolute;left:0;right:0;bottom:0;height:36px;pointer-events:none;
+    background:linear-gradient(180deg,transparent,rgba(10,1,24,.85));border-radius:0 0 12px 12px}
+  .tv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;
+    max-height:440px;overflow-y:auto;overflow-x:hidden;padding:4px 8px 8px 4px;
+    scrollbar-width:thin;scrollbar-color:var(--neon-cyan) rgba(255,255,255,.05)}
+  .tv-grid::-webkit-scrollbar{width:8px}
+  .tv-grid::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:4px}
+  .tv-grid::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--neon-cyan),var(--neon-purple));border-radius:4px}
+  .tv-card{padding:14px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(160deg,rgba(0,240,255,.07),rgba(177,74,255,.04));
+    transition:.2s;position:relative}
+  .tv-card:hover{border-color:var(--neon-cyan);box-shadow:0 8px 24px rgba(0,240,255,.18)}
+  .tv-card .tv-emoji{font-size:1.6rem;margin-bottom:6px}
+  .tv-card .tv-title{font-weight:700;font-size:.95rem;line-height:1.25;margin-bottom:3px}
+  .tv-card .tv-meta{font-family:'Audiowide',sans-serif;font-size:.65rem;color:var(--neon-cyan);letter-spacing:1px;margin-bottom:8px}
+  .tv-card .tv-note{font-size:.78rem;color:rgba(244,236,255,.65);line-height:1.4;margin-bottom:10px}
+  .tv-actions{display:flex;gap:6px;flex-wrap:wrap}
+  .tv-btn{font-family:'Audiowide',sans-serif;font-size:.65rem;letter-spacing:1px;cursor:pointer;
+    border:none;border-radius:20px;padding:7px 12px;display:inline-flex;align-items:center;gap:5px;
+    text-decoration:none;transition:.15s}
+  .tv-btn.play{background:#1db954;color:#fff}
+  .tv-btn.play:hover{background:#1ed760;transform:translateY(-1px)}
+  .tv-btn.open{background:transparent;border:1px solid var(--neon-cyan);color:var(--neon-cyan)}
+  .tv-btn.open:hover{background:rgba(0,240,255,.1)}
+  /* Reproductor único arriba de las sintonías */
+  .tv-player{margin-bottom:14px;border-radius:12px;overflow:hidden;border:1px solid var(--line);
+    background:rgba(29,185,84,.05);transition:.25s}
+  .tv-player.active{border-color:#1db954;box-shadow:0 0 24px rgba(29,185,84,.25)}
+  .tv-player .tv-player-head{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:.85rem;
+    color:rgba(244,236,255,.75)}
+  .tv-player .tv-player-head .tp-ico{font-size:1.1rem}
+  .tv-player .tv-player-head .tp-now{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tv-player .tv-player-head .tp-now b{color:var(--neon-yellow)}
+  .tv-player iframe{width:100%;height:0;border:0;display:block;transition:height .3s ease}
+  .tv-player.active iframe{height:80px}
+
+  /* tarjeta activa de sintonía */
+  .tv-card.playing{border-color:#1db954;background:linear-gradient(160deg,rgba(29,185,84,.15),rgba(177,74,255,.04))}
+  .tv-card.playing .tv-btn.play{background:#1ed760}
+
+  .jingle-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:4px;
+    max-height:280px;overflow-y:auto;overflow-x:hidden;padding:4px 8px 8px 4px;
+    scrollbar-width:thin;scrollbar-color:var(--neon-yellow) rgba(255,255,255,.05)}
+  .jingle-grid::-webkit-scrollbar{width:8px}
+  .jingle-grid::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:4px}
+  .jingle-grid::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--neon-yellow),var(--neon-orange));border-radius:4px}
+  .jingle{padding:12px 14px;border:1px dashed rgba(255,230,0,.3);border-radius:10px;
+    background:rgba(255,230,0,.04);transition:.2s}
+  .jingle:hover{background:rgba(255,230,0,.09);border-color:var(--neon-yellow)}
+  .jingle .jq{font-style:italic;font-size:.92rem;line-height:1.35;color:var(--ink)}
+  .jingle .jq::before{content:"“";color:var(--neon-yellow);font-size:1.3rem;line-height:0;margin-right:2px}
+  .jingle .jq::after{content:"”";color:var(--neon-yellow);font-size:1.3rem;line-height:0;margin-left:2px}
+  .jingle .jm{display:block;font-family:'Audiowide',sans-serif;font-size:.65rem;letter-spacing:1px;
+    color:var(--neon-yellow);margin-top:6px}
+
+  @media print{
+    body{background:#1a0533 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body::before,.panel:not(#invPanel),header,footer,.inv-controls,.inv-edit,.inv-styles{display:none !important}
+    #invPanel{border:none;box-shadow:none;background:none;margin:0;padding:0}
+    #invPanel .panel-title,#invPanel .hint{display:none}
+    .inv-stage{display:none !important}
+    .inv-stage.active{display:block !important}
+    .arcade,.postcard,.cassette{margin:0 auto;box-shadow:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== CABECERA ===== -->
+  <header>
+    <div class="sun"></div>
+    <h1>Fiesta 80·90</h1>
+    <div class="sub">Feliz Medio Siglo</div>
+    <div class="phrases">
+      <span>Teníamos 16</span>
+      <span>La noche de CocoLoco y Bacarrá</span>
+      <span>Tardes de recreativos</span>
+      <span>Paseos nocturnos por la playa</span>
+      <span>Amanecer bailando</span>
+      <span>Gandía 88·95</span>
+    </div>
+  </header>
+
+  <!-- ===== PLAYLIST REAL ===== -->
+  <section class="panel">
+    <div class="panel-title">La Lista Sonando</div>
+    <div class="hint">La playlist completa de la fiesta, sonando aquí mismo. Dale al play o ábrela en tu Spotify para llevártela a la nevera de la barra.</div>
+    <div class="spwrap">
+      <iframe src="https://open.spotify.com/embed/playlist/05pFSYU19MmuSWYK3oeQwO?utm_source=generator&theme=0"
+        height="420" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"></iframe>
+    </div>
+    <div class="pl-actions">
+      <a class="btn spotify" href="https://open.spotify.com/playlist/05pFSYU19MmuSWYK3oeQwO" target="_blank" rel="noopener">▶ Abrir en Spotify</a>
+      <a class="btn alt" href="https://open.spotify.com/playlist/05pFSYU19MmuSWYK3oeQwO" target="_blank" rel="noopener">🔗 Compartir enlace</a>
+    </div>
+  </section>
+
+  <!-- ===== REPRODUCTOR ALEATORIO ===== -->
+  <section class="panel">
+    <div class="panel-title">Tocadiscos Aleatorio</div>
+    <div class="hint">Dale a la aguja y deja que el azar elija un recuerdo. La canción aparecerá en el reproductor de aquí abajo; dale al play para escucharla.</div>
+    <div class="player">
+      <div class="cover" id="rndCover">
+        <div class="vinyl">▶</div>
+      </div>
+      <div class="pinfo">
+        <h3 id="rndTitle">Pulsa "Otra al azar"</h3>
+        <div class="artist" id="rndArtist">—</div>
+        <span class="year" id="rndYear">19··</span>
+        <div class="note" id="rndNote">Una sesión de remember para una noche que no terminaba nunca.</div>
+        <div class="controls">
+          <button class="btn" onclick="randomTrack()">🎲 Otra al azar</button>
+          <a class="btn spotify" id="rndSpotify" href="#" target="_blank" rel="noopener">▶ Spotify</a>
+        </div>
+      </div>
+      <div class="rnd-player" id="rndPlayer">
+        <iframe id="rndFrame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        <div class="rnd-msg">Este tema no está disponible para reproducción incrustada. Usa el botón "▶ Spotify" para abrirlo en la app.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PESTAÑAS ===== -->
+  <section class="panel">
+    <div class="panel-title">El Vinilo de Aquellos Veranos</div>
+    <div class="hint">Cada estilo es un disco. <b>Cara A</b> (≈22 min) y <b>Cara B</b> (≈22 min) reúnen los himnos imprescindibles; debajo, el resto de joyas de la caja. Pincha cualquier tema para abrir su ficha.</div>
+    <div class="legend">
+      <i><span class="dot dy"></span>Cara A — himnos para abrir pista</i>
+      <i><span class="dot dp"></span>Cara B — los que cerraban la noche</i>
+      <i><span class="dot dr"></span>El resto de la caja</i>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-t="0" onclick="switchTab(0)">Dance / Eurodance / House</div>
+      <div class="tab" data-t="1" onclick="switchTab(1)">Pop / Rock de la época</div>
+      <div class="tab" data-t="2" onclick="switchTab(2)">Italo / Bakalao patrio y europeo</div>
+    </div>
+
+    <div class="sec-player" id="vinPlayer">
+      <div class="sp-head">
+        <span class="sp-ico">🎵</span>
+        <span class="sp-now" id="vinNow">Pincha un tema de cualquier pestaña y sonará aquí. Luego dale al play del reproductor.</span>
+      </div>
+      <iframe id="vinFrame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      <div class="sp-msg">Este tema no está disponible para reproducción incrustada. Usa el botón "▶ Escuchar en Spotify" de la ficha.</div>
+    </div>
+
+    <div class="tabpane active" id="pane0"></div>
+    <div class="tabpane" id="pane1"></div>
+    <div class="tabpane" id="pane2"></div>
+  </section>
+
+  <!-- ===== LÍNEA DE TIEMPO SVG ===== -->
+  <section class="panel">
+    <div class="panel-title">Línea del Tiempo · 1984 → 1995</div>
+    <div class="hint">Cada punto es un éxito, colocado en su año y coloreado por estilo. Pásale el ratón (o tócalo) para ver el tema y haz clic para escucharlo en el reproductor de aquí abajo. Usa la leyenda para filtrar por estilo.</div>
+    <div class="tl-legend" id="tlLegend">
+      <i data-g="0"><span class="dot" style="background:var(--neon-cyan)"></span>Dance / Eurodance / House</i>
+      <i data-g="1"><span class="dot" style="background:var(--neon-pink)"></span>Pop / Rock</i>
+      <i data-g="2"><span class="dot" style="background:var(--neon-yellow)"></span>Italo / Bakalao</i>
+    </div>
+    <div class="sec-player" id="tlPlayer">
+      <div class="sp-head">
+        <span class="sp-ico">🎵</span>
+        <span class="sp-now" id="tlNow">Pincha un punto y sonará aquí. Luego dale al play del reproductor.</span>
+      </div>
+      <iframe id="tlFrame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      <div class="sp-msg">Este tema no está disponible para reproducción incrustada. Pincha aquí para abrirlo en Spotify: <a id="tlOpen" href="#" target="_blank" rel="noopener" style="color:#1db954">↗ Abrir</a></div>
+    </div>
+    <div class="tl-scroll">
+      <svg id="timeline" viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Línea del tiempo de éxitos"></svg>
+    </div>
+    <div class="tl-count" id="tlCount"></div>
+  </section>
+
+  <!-- ===== Nº1 POR EDAD ===== -->
+  <section class="panel">
+    <div class="panel-title">El Nº1 del año que cumplías...</div>
+    <div class="hint">Meri nació en 1976. Aquí tienes, año a año, la edad que tenía y un número uno que sonaba entonces. Pincha cualquiera para escucharlo en el reproductor de aquí abajo. ¿Lo ves? En el 92, justo cuando "teníamos 16". 🎂</div>
+    <div class="sec-player" id="ageRPlayer">
+      <div class="sp-head">
+        <span class="sp-ico">🎵</span>
+        <span class="sp-now" id="ageNow">Pincha un año y sonará aquí. Luego dale al play del reproductor.</span>
+      </div>
+      <iframe id="ageFrame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      <div class="sp-msg">Este tema no está disponible para reproducción incrustada. Pincha "↗ Abrir en Spotify" para escucharlo en la app.</div>
+    </div>
+    <div class="age-grid" id="ageGrid"></div>
+  </section>
+
+  <!-- ===== JUEGO ADIVINA LA CANCIÓN ===== -->
+  <section class="panel">
+    <div class="panel-title">¿Te suena? · El juego de la fiesta</div>
+    <div class="hint">Pistas tipo trivial que van de difícil a fácil: un dato curioso, cómo suena, el estilo y año, y por último el título a medias. Cuantas menos pistas gastéis, más mérito. Al final, ¡botón para ponerla a sonar!</div>
+    <div class="quiz">
+      <div class="qz-score" id="qzScore">
+        <span>🏆 Aciertos: <b id="qzHits">0</b></span>
+        <span>💡 Pistas gastadas: <b id="qzClues">0</b></span>
+        <span>🎵 Rondas: <b id="qzRounds">0</b></span>
+      </div>
+      <div class="qz-steps" id="qzSteps"></div>
+      <div class="clue" id="qzClue">Pulsa "Empezar ronda" y que adivine la peña.</div>
+      <div class="reveal" id="qzReveal"></div>
+      <div class="sec-player" id="qzPlayer" style="display:none">
+        <iframe id="qzFrame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        <div class="sp-msg">Este tema no está disponible para reproducción incrustada. <a id="qzOpen" href="#" target="_blank" rel="noopener" style="color:#1db954">↗ Abrir en Spotify</a></div>
+      </div>
+      <div class="quiz-controls">
+        <button class="btn" id="qzMain" onclick="quizStart()">▶ Empezar ronda</button>
+        <button class="btn alt" id="qzGot" onclick="quizGot()" style="display:none">✅ ¡Acertada!</button>
+        <button class="btn alt" id="qzRevealBtn" onclick="quizReveal()" style="display:none">👀 Rendirse y revelar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXTRAS ===== -->
+  <section class="panel">
+    <div class="panel-title">Para que la noche sea perfecta</div>
+    <div class="hint">Detalles para ambientar la fiesta como entonces, con guiños a lo que se llevaba en Madrid y en Valencia en aquellos años.</div>
+    <div class="extras-grid">
+      <div class="ex">
+        <h4>⏱ El reto de la Cara A</h4>
+        <p>Pon solo los himnos de una pestaña (los del acordeón de Cara A): rondan los 22 min, justo lo que duraba una cara de vinilo. Cuando suene el aviso, ¡a darle la vuelta al disco!</p>
+        <div class="timer" id="timer">22:00</div>
+        <button class="btn alt" onclick="toggleTimer()">▶ Lado A</button>
+      </div>
+      <div class="ex">
+        <h4>🍹 Carta de la barra</h4>
+        <p>Lo que se pedía entonces: cubata de ron (Negrita) con Coca-Cola, calimocho en vaso de tubo, y para las copas "finas" un Malibú con piña o un Licor 43 con leche. Vodka con limón para los modernos. Y un San Francisco sin alcohol para quien conduzca.</p>
+      </div>
+      <div class="ex">
+        <h4>👕 Dress code remember</h4>
+        <p>Vaqueros lavados a la piedra (Levi's 501), cazadora vaquera, hombreras, riñonera y deportivas Reebok o Nike. Flequillo cardado con espuma, gafas de pasta y un toque flúor. Perfume de la época: Don Algodón. Pulseritas fosforitas de la entrada de la disco.</p>
+      </div>
+      <div class="ex">
+        <h4>🎮 Rincón recreativo</h4>
+        <p>El fenómeno de los 90 fue <b>Street Fighter II</b>: corrillo alrededor de la máquina y duelos a "¿qué personaje llevas?". Si pillas una recreativa o un emulador, mete también Final Fight, las Tortugas Ninja, Pang u Outrun. Tarro de monedas de 25 pesetas para "echar otra".</p>
+      </div>
+      <div class="ex">
+        <h4>📺 Madrid: la movida que no se iba</h4>
+        <p>Guiño a la capital: carteles de la movida ya madura, chapas y pósters, y la tele de fondo con la sintonía de la "bola de cristal" o algún VHS grabado. Bocadillo de calamares a la vuelta, como manda la tradición de la madrugada madrileña.</p>
+      </div>
+      <div class="ex">
+        <h4>🛣 Valencia: el espíritu de la Ruta</h4>
+        <p>El alma de CocoLoco y Bacarrá: el "Sonido Valencia" de Chimo Bayo y Megabeat, la cultura del parking y las sesiones interminables de la Ruta del Saler. Cintas de cassette con las sesiones grabadas pasando de mano en mano. Pegatinas de discotecas para decorar.</p>
+      </div>
+      <div class="ex">
+        <h4>📼 Detalle sorpresa</h4>
+        <p>Cintas TDK y BASF vacías como decoración, un walkman de verdad, fotos de la pandilla ampliadas, y entradas de discoteca recreadas como invitación. Polaroids para que la gente deje su foto de la noche.</p>
+      </div>
+      <div class="ex">
+        <h4>🌅 Cierre al amanecer</h4>
+        <p>Guarda "Living on My Own" y "Café del Mar" para el final. Salir a ver amanecer con la última canción sonando, como en los cierres de la playa: el broche perfecto para los 50 de Meri.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TV DE AQUELLA ÉPOCA ===== -->
+  <section class="panel">
+    <div class="panel-title">La tele de aquella época</div>
+    <div class="hint">La banda sonora paralela a la fiesta: las sintonías que veíamos al volver del cole y los jingles que se sabía todo el mundo aunque no quisiera. Pulsa "▶ Escuchar aquí" en cualquier sintonía y se cargará en el <b>reproductor de arriba</b>; luego dale al play del reproductor para que suene.</div>
+
+    <div class="tv-sub">📺 Sintonías de dibujos y series</div>
+    <div class="tv-player" id="tvPlayer">
+      <div class="tv-player-head">
+        <span class="tp-ico">🎵</span>
+        <span class="tp-now" id="tpNow">Pulsa "▶ Escuchar aquí" en una sintonía y aparecerá aquí. Luego dale al play del reproductor.</span>
+      </div>
+      <iframe id="tpFrame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="tv-grid-wrap"><div class="tv-grid" id="tvGrid"></div></div>
+
+    <div class="tv-sub jingles">📢 Jingles que no se olvidan</div>
+    <div class="hint" style="margin-top:0">Estos no están en Spotify — son patrimonio de la memoria colectiva. Léelos en voz alta y verás cómo todo el mundo los completa solo.</div>
+    <div class="jingle-grid" id="jingleGrid"></div>
+  </section>
+
+  <!-- ===== INVITACIÓN ===== -->
+  <section class="panel" id="invPanel">
+    <div class="panel-title">La Invitación</div>
+    <div class="hint">Elige el estilo, ajusta los datos en los campos editables y dale a imprimir (o guarda como PDF). Se imprime solo la invitación seleccionada.</div>
+    <div class="inv-styles">
+      <div class="inv-style" data-s="0" onclick="switchInv(0)">🕹️ Recreativa Arcade</div>
+      <div class="inv-style active" data-s="1" onclick="switchInv(1)">🌴 Postal Neón</div>
+      <div class="inv-style" data-s="2" onclick="switchInv(2)">📼 Cassette TDK</div>
+    </div>
+    <div class="inv-edit">
+      <input id="iPlayer" type="text" value="MERI" oninput="syncInvite()" aria-label="Player">
+      <input id="iScore" type="text" value="1976" oninput="syncInvite()" aria-label="Score (año de nacimiento)">
+      <input id="iVenue" type="text" value="DEKADA" oninput="syncInvite()" aria-label="Lugar">
+      <input id="iAddr" type="text" value="San Vicente Ferrer 34" oninput="syncInvite()" aria-label="Dirección">
+      <input id="iWhen" type="text" value="SÁBADO 6 / 6 / 2026" oninput="syncInvite()" aria-label="Fecha">
+      <input id="iHours" type="text" value="20 - 24H" oninput="syncInvite()" aria-label="Horario">
+    </div>
+
+    <!-- Estilo 0: Recreativa Arcade -->
+    <div class="inv-stage" id="invStage-0">
+      <div class="arcade" id="inviteCard">
+        <div class="arc-top"></div>
+        <div class="invite">
+          <div class="arc-hud">
+            SCORE: <span class="v" data-bind="score">1976</span><br>
+            PLAYER: <span class="v" data-bind="player">MERI</span>
+          </div>
+          <h2>Fiesta 80s</h2>
+          <div class="lvl">Nivel 50<br><small>DESBLOQUEADO</small></div>
+          <div class="i50-wrap">
+            <span class="i50-icon">⚡</span>
+            <span class="i50">50</span>
+            <span class="i50-icon">🕹️</span>
+          </div>
+          <div class="venue" data-bind="venue">DEKADA</div>
+          <div class="addr" data-bind="addr">San Vicente Ferrer 34</div>
+          <hr class="arc-sep">
+          <div class="when" data-bind="when">SÁBADO 6 / 6 / 2026</div>
+          <div class="hrs" data-bind="hours">20 - 24H</div>
+          <div class="barra">★ BARRA LIBRE ★</div>
+          <div class="iqr">
+            <img src="data:image/png;base64,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" alt="QR a la playlist de Spotify">
+            <span>▶ ESCANEA LA PLAYLIST</span>
+          </div>
+        </div>
+        <div class="arc-buttons">
+          <div class="arc-btn r"><span class="knob"></span><span class="lbl">START</span></div>
+          <div class="arc-btn b"><span class="knob"></span><span class="lbl">SELECT</span></div>
+          <div class="arc-btn y"><span class="knob"></span><span class="lbl">PARTY MODE</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estilo 1: Postal Neón -->
+    <div class="inv-stage active" id="invStage-1">
+      <div class="postcard">
+        <div class="psun"></div>
+        <h2>Fiesta 80·90</h2>
+        <div class="p50">50</div>
+        <div class="pname">¡Por los 50 de <span data-bind="player">MERI</span>!</div>
+        <div class="pmeta">
+          <div class="place"><span data-bind="venue">DEKADA</span></div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.7);margin-top:2px"><span data-bind="addr">San Vicente Ferrer 34</span></div>
+          <div style="margin-top:10px"><b><span data-bind="when">SÁBADO 6 / 6 / 2026</span></b></div>
+          <div><b><span data-bind="hours">20 - 24H</span></b></div>
+          <div style="margin-top:10px;color:var(--neon-yellow)">★ BARRA LIBRE ★</div>
+          <div style="margin-top:10px;font-size:.82rem;color:rgba(255,255,255,.75)">Dress code: <b>flúor, hombreras y riñonera</b></div>
+        </div>
+        <div class="piqr">
+          <img src="data:image/png;base64,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" alt="QR a la playlist de Spotify">
+          <span>▶ ESCANEA LA PLAYLIST</span>
+        </div>
+        <div class="pfoot">★ COCOLOCO · BACARRÁ · GANDÍA · TENÍAMOS 16 ★</div>
+      </div>
+    </div>
+
+    <!-- Estilo 2: Cassette TDK -->
+    <div class="inv-stage" id="invStage-2">
+      <div class="cassette">
+        <div class="label">
+          <div class="lhead">
+            <span class="lside">A</span>
+            <span class="tdk">TDK</span>
+            <span class="ref">SA-X 90</span>
+          </div>
+          <div class="lbody">
+            <div class="ctitle">Fiesta 80·90</div>
+            <div class="cname">los 50 de <span data-bind="player">MERI</span> 🎂</div>
+            <div class="cmeta">
+              <span class="lugar"><span data-bind="venue">DEKADA</span></span>
+              <span class="addr"><span data-bind="addr">San Vicente Ferrer 34</span></span>
+              <span class="fecha"><span data-bind="when">SÁBADO 6 / 6 / 2026</span> · <span data-bind="hours">20 - 24H</span></span>
+              <span class="barra">★ barra libre ★</span>
+            </div>
+            <div class="cqr">
+              <img src="data:image/png;base64,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" alt="QR a la playlist de Spotify">
+              <span>playlist ♫</span>
+            </div>
+          </div>
+        </div>
+        <div class="mech">
+          <div class="window"><div class="reel"></div></div>
+          <div class="tape"></div>
+          <div class="window"><div class="reel"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inv-controls" style="justify-content:center;margin-top:18px">
+      <button class="btn" onclick="window.print()">🖨 Imprimir / Guardar PDF</button>
+    </div>
+  </section>
+
+  <footer>★ HECHO CON NOSTALGIA · GANDÍA · COCOLOCO · BACARRÁ ★</footer>
+</div>
+
+<script>
+/* ====== DATOS ======
+   side: "A" = Cara A (icónico), "B" = Cara B (icónico), "rest" = resto de la caja */
+const DATA = {
+  0: [ /* Dance / Eurodance / House */
+    {t:"Rhythm Is a Dancer", a:"Snap!", y:1992, side:"A",
+      note:"Eurodance alemán que arrasó en toda Europa. Sonaba en bucle en cualquier pista de costa.",
+      gandia:"Himno absoluto de las terrazas de Gandía aquel verano; no había noche sin él."},
+    {t:"The Power", a:"Snap!", y:1990, side:"A",
+      note:"El 'I've got the power' que todo el mundo gritaba aunque no supiera inglés."},
+    {t:"Pump Up the Jam", a:"Technotronic", y:1989, side:"A",
+      note:"De los primeros pelotazos del house comercial; abrió la puerta de la década dance."},
+    {t:"Ride on Time", a:"Black Box", y:1989, side:"A",
+      note:"Piano house italiano con voz diva. Uno de los arranques de pista por excelencia.",
+      gandia:"De los temas que ponían al caer la tarde en los chiringuitos de la playa."},
+    {t:"What Is Love", a:"Haddaway", y:1993, side:"B",
+      note:"'What is love, baby don't hurt me': coro coreado en cada discoteca del Mediterráneo."},
+    {t:"The Rhythm of the Night", a:"Corona", y:1993, side:"B",
+      note:"Eurodance italiano luminoso, perfecto para los amaneceres bailando.",
+      gandia:"Sonaba en los cierres en CocoLoco mientras salía el sol sobre la playa."},
+    {t:"No Limit", a:"2 Unlimited", y:1993, side:"B",
+      note:"'No no, no no no no...' El gancho más repetido del Eurodance de los 90."},
+    {t:"Mr. Vain", a:"Culture Beat", y:1993, side:"B",
+      note:"Número uno en media Europa; el estribillo no se iba de la cabeza en todo el verano."},
+    {t:"It's My Life", a:"Dr. Alban", y:1992, side:"B",
+      note:"El sueco-nigeriano que mezclaba reggae y eurodance. Imprescindible."},
+    {t:"Finally", a:"CeCe Peniston", y:1991, side:"rest",
+      note:"House con alma, diva total. De las que levantaban la pista de madrugada."},
+    {t:"Gypsy Woman (She's Homeless)", a:"Crystal Waters", y:1991, side:"rest",
+      note:"El 'la da dee la da da' más reconocible del house de principios de los 90."},
+    {t:"Show Me Love", a:"Robin S", y:1993, side:"rest",
+      note:"Órgano house clásico; uno de esos sonidos que define toda una época."},
+    {t:"Get Ready for This", a:"2 Unlimited", y:1991, side:"rest", note:"Instrumental de estadios y pistas; pura adrenalina noventera."},
+    {t:"Sing Hallelujah!", a:"Dr. Alban", y:1993, side:"rest", note:"Continuación festiva del éxito de Dr. Alban."},
+    {t:"U Got 2 Know", a:"Cappella", y:1993, side:"rest", note:"Eurodance italiano de pista directa."},
+    {t:"Move on Baby", a:"Cappella", y:1994, side:"rest", note:"Otro pelotazo de Cappella muy de discoteca de costa."},
+    {t:"Is It Love", a:"Twenty 4 Seven", y:1993, side:"rest", note:"Eurodance holandés con rap y estribillo pegadizo."},
+    {t:"Somebody Dance with Me", a:"DJ BoBo", y:1993, side:"rest", note:"El suizo del eurodance; coreografías incluidas."},
+    {t:"3 a.m. Eternal", a:"The KLF", y:1991, side:"rest", note:"Stadium house británico, sirenas y bombo a tope."},
+    {t:"Go", a:"Moby", y:1991, side:"rest", note:"El clásico rave de Moby con el sample del tema de Twin Peaks. Lo más cercano a un hit de pista que tenía en aquella época."},
+    {t:"Move (You Make Me Feel So Good)", a:"Moby", y:1993, side:"rest", note:"Moby en su vena más rave y underground de los primeros 90."},
+    {t:"Groove Is in the Heart", a:"Deee-Lite", y:1990, side:"rest", note:"Funky, colorido y psicodélico; de los más divertidos de la pista."},
+    {t:"Back to Life", a:"Soul II Soul", y:1989, side:"rest", note:"Soul británico elegante que abrió la década."},
+    {t:"I'm Too Sexy", a:"Right Said Fred", y:1991, side:"rest", note:"Gamberro y autoparódico; un fijo de las fiestas."}
+  ],
+  1: [ /* Pop / Rock */
+    {t:"Losing My Religion", a:"R.E.M.", y:1991, side:"A",
+      note:"La mandolina más famosa del rock alternativo. Un recuerdo que pediste tú mismo.",
+      gandia:"De esos temas que sonaban en el coche de vuelta a casa por el paseo marítimo."},
+    {t:"Smells Like Teen Spirit", a:"Nirvana", y:1991, side:"A",
+      note:"El grito de toda una generación; el grunge entrando como un huracán."},
+    {t:"Enjoy the Silence", a:"Depeche Mode", y:1990, side:"A",
+      note:"Synth-pop oscuro y elegante; himno de pista alternativa."},
+    {t:"One", a:"U2", y:1991, side:"A",
+      note:"Balada épica del Achtung Baby; mecheros encendidos garantizados."},
+    {t:"Zombie", a:"The Cranberries", y:1994, side:"B",
+      note:"El 'zombie, zombie, zombie-ie-ie' que coreaba todo el mundo."},
+    {t:"Are You Gonna Go My Way", a:"Lenny Kravitz", y:1993, side:"B",
+      note:"Riff rockero retro; energía pura para subir el ambiente."},
+    {t:"Friday I'm in Love", a:"The Cure", y:1992, side:"B",
+      note:"El lado más luminoso y pop de The Cure; imposible no sonreír."},
+    {t:"What's Up?", a:"4 Non Blondes", y:1992, side:"B",
+      note:"'Hey yeah yeah yeah': el karaoke involuntario de toda fiesta noventera."},
+    {t:"Under the Bridge", a:"Red Hot Chili Peppers", y:1991, side:"B",
+      note:"Melancolía californiana; uno de los momentos emotivos de la noche."},
+    {t:"(Everything I Do) I Do It for You", a:"Bryan Adams", y:1991, side:"rest",
+      note:"La balada lenta para los abrazos. Número uno durante semanas y semanas.",
+      gandia:"El lento de rigor en las discotecas antes de cerrar."},
+    {t:"Linger", a:"The Cranberries", y:1993, side:"rest",
+      note:"Voz inconfundible de Dolores O'Riordan; pura nostalgia."},
+    {t:"Joyride", a:"Roxette", y:1991, side:"rest",
+      note:"Pop sueco brillante; el silbidito inicial es puro verano."},
+    {t:"Need You Tonight", a:"INXS", y:1987, side:"rest", note:"Funk-rock australiano sexy; de finales de los 80 pero eterno."},
+    {t:"Personal Jesus", a:"Depeche Mode", y:1989, side:"rest", note:"Riff de blues electrónico; un clásico instantáneo."},
+    {t:"Mysterious Ways", a:"U2", y:1991, side:"rest", note:"Groove bailable de la etapa Achtung Baby."},
+    {t:"Alive", a:"Pearl Jam", y:1991, side:"rest", note:"Grunge de Seattle con alma; para los más rockeros."},
+    {t:"Give It Away", a:"Red Hot Chili Peppers", y:1991, side:"rest", note:"Funk-rock frenético, energía desatada."},
+    {t:"It Ain't Over 'Til It's Over", a:"Lenny Kravitz", y:1991, side:"rest", note:"Soul retro suave y elegante."},
+    {t:"Two Princes", a:"Spin Doctors", y:1991, side:"rest", note:"Rock alegre y desenfadado de bar."},
+    {t:"Mmm Mmm Mmm Mmm", a:"Crash Test Dummies", y:1993, side:"rest", note:"Voz grave inconfundible; rareza pegadiza."},
+    {t:"The Look", a:"Roxette", y:1989, side:"rest", note:"'She's got the look'; pop-rock de estadio."},
+    {t:"A Little Respect", a:"Erasure", y:1988, side:"rest", note:"Synth-pop emotivo para corear."},
+    {t:"Go West", a:"Pet Shop Boys", y:1993, side:"rest", note:"Himno coral, perfecto para brindar."},
+    {t:"Love Shack", a:"The B-52's", y:1989, side:"rest", note:"Fiesta kitsch garantizada; 'tin roof, rusted!'."},
+    {t:"Unbelievable", a:"EMF", y:1990, side:"rest", note:"Indie-dance británico con muchísima marcha."},
+    {t:"Epic", a:"Faith No More", y:1989, side:"rest", note:"Funk-metal con piano final; para los rockeros de la pandilla."},
+    {t:"Sowing the Seeds of Love", a:"Tears for Fears", y:1989, side:"rest", note:"Pop sinfónico beatleliano de fin de los 80."}
+  ],
+  2: [ /* Italo / Bakalao patrio y europeo */
+    {t:"Así me gusta a mí (Exta-sí)", a:"Chimo Bayo", y:1991, side:"A",
+      note:"El himno del bakalao valenciano por excelencia. 'Esta sí, esta no...' Vendió más de un millón de copias en 40 países.",
+      gandia:"Chimo Bayo era de la tierra: en la Comunidad Valenciana, esto era LA canción de la Ruta. Sonaba sí o sí cada noche."},
+    {t:"Living on My Own", a:"Freddie Mercury", y:1993, side:"A",
+      note:"El remix de No More Brothers de 1993 lo convirtió en bombazo de pista póstumo. El que recordabas tú.",
+      gandia:"Uno de los grandes himnos de aquellos veranos; sonaba en CocoLoco y Bacarrá sin falta."},
+    {t:"Es imposible, no puede ser", a:"Megabeat", y:1990, side:"A",
+      note:"Maxi single mítico del Sonido Valencia firmado por Megabeat (Julio Nexus, Fran Lenaers y Gani Manero), considerados los padres del sonido que abrió camino al bakalao.",
+      gandia:"Producido en Valencia; uno de los temas que pusieron el sello de la tierra en las pistas costeras."},
+    {t:"Touch Me", a:"49ers", y:1989, side:"A",
+      note:"Italo-house con diva sampleada; clásico de las pistas mediterráneas."},
+    {t:"Struggle for Pleasure", a:"Megabeat (Interfront)", y:1991, side:"A",
+      note:"Considerado casi a nivel mundial EL himno del bakalao. Curiosamente parte de una pieza minimalista del belga Wim Mertens (1983).",
+      gandia:"Sonido Valencia en estado puro: de los temas que definían el ambiente de la Ruta del Saler a Gandía."},
+    {t:"Café del Mar", a:"Energy 52", y:1993, side:"B",
+      note:"Trance balear inmortal con esa melodía reconocible al instante. Votado mejor tema de todos los tiempos por los lectores de Mixmag.",
+      gandia:"El sonido del atardecer mediterráneo; perfecto para las puestas de sol en la playa."},
+    {t:"The First Rebirth", a:"Jones & Stephenson", y:1993, side:"B",
+      note:"Himno belga que sonó en todas las discotecas de la Ruta; una de las bases del hardcore/gabber."},
+    {t:"Eternity", a:"Sensity World", y:1992, side:"B",
+      note:"Capturó la esencia de la Ruta con su melodía emocionante y su mensaje de unidad."},
+    {t:"La tía Enriqueta", a:"Chimo Bayo", y:1993, side:"B",
+      note:"Otro hitazo de Chimo Bayo, esta vez con tono humorístico y una base ácida y progresiva; consolidó su sello de showman del bakalao."},
+    {t:"Rich in Paradise (Going Back to My Roots)", a:"FPI Project", y:1989, side:"rest",
+      note:"Italo-house elegante; piano y voz gospel para la madrugada."},
+    {t:"Strange", a:"Megabeat", y:1991, side:"rest",
+      note:"Otro clásico de Megabeat (Interfront); vendieron miles de copias en maxi single y son referencia del Sonido Valencia."},
+    {t:"Bombas", a:"Chimo Bayo", y:1992, side:"rest",
+      note:"El disco más vendido de Chimo Bayo a nivel mundial; llegó al nº 1 en Japón y le llevó a actuar en el Tokyo Dome ante 55.000 personas."},
+    {t:"Self Control", a:"Raf / Laura Branigan", y:1984, side:"rest",
+      note:"Italo-clásico que se seguía pinchando en sesiones remember toda la década."},
+    {t:"Don't You Want Me", a:"Felix", y:1992, side:"rest",
+      note:"Piano rave europeo que pegó fuerte en las pistas."},
+    {t:"Tetris", a:"Doctor Spin", y:1992, side:"rest",
+      note:"La melodía del Tetris en versión rave; puro guiño recreativo."}
+  ]
+};
+
+const SIDE_LABEL = {A:"Cara A · himnos para abrir pista", B:"Cara B · los que cerraban la noche", rest:"El resto de la caja"};
+
+const TRACK_IDS={
+  "Rhythm Is a Dancer":"5uFYYOyT3EclOVhiFzPJSz",
+  "The Power":"3P5dVXm98CgVuEpcW2HsUk",
+  "Pump Up the Jam":"21qnJAMtzC6S5SESuqQLEK",
+  "Ride on Time":"3pgainA2dH9c7e8JVYGRCN",
+  "What Is Love":"7JkZ2hQdDonRURJjlMuh8q",
+  "The Rhythm of the Night":"5UCPOJs8VJARoIX6acKRuJ",
+  "No Limit":"1hGvGM76KOX6tpAyaHB0au",
+  "Mr. Vain":"2rTYgHxgcndkUrRoU7x0Sv",
+  "It's My Life":"4TOGkYS141L15SkVosAp7Z",
+  "Finally":"2WpCr1ls4bjL54NAcN5DAA",
+  "Gypsy Woman (She's Homeless)":"1SShxVVBeZBCY7WddnksPz",
+  "Show Me Love":"4t0UsYzmmmZRMTWn77jiGF",
+  "Get Ready for This":"1g99Kyk780gPOBWbMx8YPx",
+  "Sing Hallelujah!":"2qjDNbgLzfBpCvDwfw11Qg",
+  "U Got 2 Know":"2jKUoiPjKY9gHl7DKexZbO",
+  "Move on Baby":"1PavRrF6Ydo0HSePmMt5tL",
+  "Is It Love":"26aj54n9Ov8hoODW2mrryR",
+  "Somebody Dance with Me":"5fMQwodDL81RI6oJAMv4e0",
+  "3 a.m. Eternal":"0ldLTYuqnHU92weLtw6W9m",
+  "Go":"0e8C9dPERvvARURkNOFrrC",
+  "Move (You Make Me Feel So Good)":"5oCSVVDsdw5kCPbrF76yRZ",
+  "Groove Is in the Heart":"2He3NOyqtLNE3RQPpeDdSb",
+  "Back to Life":"7vvRkLPIvfjjmCIqNxBuEZ",
+  "I'm Too Sexy":"76gbXfMpFoZJGkPgxgzvFt",
+  "Losing My Religion":"31AOj9sFz2gM0O3hMARRBx",
+  "Smells Like Teen Spirit":"4CeeEOM32jQcH3eN9Q2dGj",
+  "Enjoy the Silence":"6WK9dVrRABMkUXFLNlgWFh",
+  "One":"3G69vJMWsX6ZohTykad2AU",
+  "Zombie":"49wOjOkS4pBK3PQnPnNYjb",
+  "Are You Gonna Go My Way":"45Ia1U4KtIjAPPU7Wv1Sea",
+  "Friday I'm in Love":"4QlzkaRHtU8gAdwqjWmO8n",
+  "What's Up?":"0jWgAnTrNZmOGmqgvHhZEm",
+  "Under the Bridge":"3d9DChrdc6BOeFsbrZ3Is0",
+  "(Everything I Do) I Do It for You":"1Eb90nmqTrxylKFhcUzW8P",
+  "Linger":"3HHehSGzW9dhs2V7Sod4jX",
+  "Joyride":"4wBcEq9lBQo8TR7CgKdf0i",
+  "Need You Tonight":"3h04eZTnmFLRMjZajbrp2R",
+  "Personal Jesus":"2wUlYDGGXlSvm2NkGj0Qio",
+  "Mysterious Ways":"50JK22El2PTIzZBU2liLDI",
+  "Alive":"1L94M3KIu7QluZe63g64rv",
+  "Give It Away":"0uppYCG86ajpV2hSR3dJJ0",
+  "It Ain't Over 'Til It's Over":"6VnpKLtfNH4Dk09YSGPSyR",
+  "Two Princes":"4ePP9So5xRzspjLFVVbj90",
+  "Mmm Mmm Mmm Mmm":"76nvqWPFucUra1xCkN1tnD",
+  "The Look":"7akWKDSf4k0Q0AHGoG91hu",
+  "A Little Respect":"1WuUHpXs5m5DN6ZflYpIBN",
+  "Go West":"0D2t9hxLR86LXCTjSngqyC",
+  "Love Shack":"4W4wYHtsrgDiivRASVOINL",
+  "Unbelievable":"5VYTKiOnHw4iTrB9pG3yum",
+  "Epic":"4ReyTz0y3TGkX48wO3Llot",
+  "Sowing the Seeds of Love":"62vx6uOYO7PrqKqKTKg9RY",
+  "Así me gusta a mí (Exta-sí)":"0UkXFKXVHe5YG7lke77CI1",
+  "Living on My Own":"2VCB1IOc2oLUkat0YCkTZ6",
+  "Touch Me":"2ycghCtdMwb29zZQ7ffSoX",
+  "Struggle for Pleasure":"09H8lVXSYKZcQIvkEMYCHk",
+  "Café del Mar":"791WQUn8PePLamJVPgGKZC",
+  "The First Rebirth":"1WnnEB2pCkvKawM5rOivvF",
+  "Eternity":"1GBBbKOarAJ38HwIfLcOji",
+  "Rich in Paradise (Going Back to My Roots)":"0rS5rO4GrFerM1PpvAUne5",
+  "Self Control":"6efSiDvnrUxhUMPGssgOlV",
+  "Don't You Want Me":"1pDhEcCl0d2SAQMKljdbys",
+  "Tetris":"1evDbSUMze9LjlK12ARwCb",
+  "Lady, Lady":"3K0rUw4z0khdNg4MiSIHB4",
+  "Live Is Life":"7hkOgKKybgawYUcrkZD3wV",
+  "The Final Countdown":"3MrRksHupTVEQ7YbA0FsZK",
+  "Es imposible, no puede ser":"6yDEub6FRxoJ0Ml5XyWa7J",
+  "Strange":"59vwCDYJ7E31FpjPJtFlAD",
+  "La tía Enriqueta":"7o64ZX4QSqGMPCf0upOWwJ",
+  "Bombas":"1D3yebEqdfyojqfeb1RWex",
+};
+
+/* enlace a Spotify: usa el track ID si está mapeado; si no, búsqueda */
+function spotifyLink(t,a){
+  if(TRACK_IDS[t]) return "https://open.spotify.com/track/"+TRACK_IDS[t];
+  return "https://open.spotify.com/search/"+encodeURIComponent(t+" "+a);
+}
+
+/* aplicar carátula a un elemento, ocultando texto vinilo si lo lleva */
+function applyCover(imgEl,url){
+  const pre=new Image();
+  pre.onload=()=>{
+    imgEl.style.backgroundImage="url('"+url+"')";
+    imgEl.dataset.cover=url;
+    const v=imgEl.querySelector&&imgEl.querySelector(".vinyl");
+    if(v) v.style.display="none";
+  };
+  pre.src=url;
+}
+
+/* carátula: si hay track ID, usar oEmbed oficial de Spotify (más fiable); si no, iTunes */
+function fetchCover(t,a,imgEl){
+  if(TRACK_IDS[t]){
+    const trackUrl="https://open.spotify.com/track/"+TRACK_IDS[t];
+    fetch("https://open.spotify.com/oembed?url="+encodeURIComponent(trackUrl))
+      .then(r=>r.json())
+      .then(d=>{ if(d&&d.thumbnail_url) applyCover(imgEl,d.thumbnail_url); })
+      .catch(()=>fetchCoverITunes(t,a,imgEl));
+  } else {
+    fetchCoverITunes(t,a,imgEl);
+  }
+}
+function fetchCoverITunes(t,a,imgEl){
+  const term=encodeURIComponent(a+" "+t);
+  fetch("https://itunes.apple.com/search?term="+term+"&entity=song&limit=1")
+    .then(r=>r.json())
+    .then(d=>{
+      if(d.results&&d.results[0]&&d.results[0].artworkUrl100){
+        applyCover(imgEl, d.results[0].artworkUrl100.replace("100x100","300x300"));
+      }
+    }).catch(()=>{});
+}
+
+/* ====== RENDER PESTAÑAS (con acordeones por grupo) ====== */
+function trackHTML(s,k,i){
+  const iconic = s.side!=="rest" ? "iconic":"";
+  const hasEmbed = !!TRACK_IDS[s.t];
+  const escName = (s.t+'|'+s.a).replace(/'/g,"\\'");
+  const playBtn = hasEmbed
+    ? `<button onclick="playInVinyl('${TRACK_IDS[s.t]}','${escName.replace(/"/g,'&quot;')}', false)" style="background:#1db954;color:#fff;border:none;border-radius:20px;padding:7px 14px;font-family:'Audiowide',sans-serif;font-size:.72rem;letter-spacing:1px;cursor:pointer;margin-right:8px">▶ Escuchar aquí</button>`
+    : "";
+  return `
+      <div class="track ${iconic}" onclick="toggleDetail(${k},${i},this)">
+        <span class="num">${String(i+1).padStart(2,'0')}</span>
+        <div class="mini" id="mini-${k}-${i}"></div>
+        <div class="tx"><b>${s.t}</b><small>${s.a}</small></div>
+        <span class="yr">${s.y}</span>
+      </div>
+      <div class="detail" id="det-${k}-${i}">
+        <div class="detail-in">
+          <span class="lbl">La ficha</span>
+          ${s.note}
+          ${s.gandia?`<div class="gandia">${s.gandia}</div>`:""}
+          <div style="margin-top:12px">
+            ${playBtn}<a href="${spotifyLink(s.t,s.a)}" target="_blank" rel="noopener">↗ Abrir en Spotify</a>
+          </div>
+        </div>
+      </div>`;
+}
+function renderPanes(){
+  const ORDER=["A","B","rest"];
+  const CLS={A:"",B:"b",rest:"rest"};
+  for(const k of [0,1,2]){
+    const list=DATA[k];
+    const pane=document.getElementById("pane"+k);
+    let html="";
+    ORDER.forEach((side,gi)=>{
+      const items=list.map((s,i)=>({s,i})).filter(o=>o.s.side===side);
+      if(!items.length) return;
+      const open = side!=="rest";           // A y B abiertas, resto recogido
+      const accId=`acc-${k}-${gi}`;
+      const inner=items.map(o=>trackHTML(o.s,k,o.i)).join("");
+      html+=`
+      <div class="acc ${open?'open':''}" id="${accId}">
+        <button class="acc-head ${CLS[side]}" onclick="toggleAcc('${accId}')" aria-expanded="${open}">
+          <span class="acc-title">${SIDE_LABEL[side]}</span>
+          <span class="acc-meta">${items.length} temas</span>
+          <span class="acc-arrow">▾</span>
+        </button>
+        <div class="acc-body">${inner}</div>
+      </div>`;
+    });
+    pane.innerHTML=html;
+    // cargar carátulas mini
+    list.forEach((s,i)=>fetchCover(s.t,s.a,document.getElementById(`mini-${k}-${i}`)));
+  }
+}
+function toggleAcc(id){
+  document.getElementById(id).classList.toggle("open");
+}
+function toggleDetail(k,i,row){
+  const d=document.getElementById(`det-${k}-${i}`);
+  d.classList.toggle("open");
+}
+function switchTab(n){
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",+t.dataset.t===n));
+  document.querySelectorAll(".tabpane").forEach((p,i)=>p.classList.toggle("active",i===n));
+}
+
+/* ====== REPRODUCTOR ALEATORIO ====== */
+const ALL=[...DATA[0],...DATA[1],...DATA[2]];
+function randomTrack(){
+  const s=ALL[Math.floor(Math.random()*ALL.length)];
+  document.getElementById("rndTitle").textContent=s.t;
+  document.getElementById("rndArtist").textContent=s.a;
+  document.getElementById("rndYear").textContent=s.y;
+  document.getElementById("rndNote").textContent=(s.gandia?s.gandia:s.note);
+  document.getElementById("rndSpotify").href=spotifyLink(s.t,s.a);
+  const cov=document.getElementById("rndCover");
+  cov.style.backgroundImage="";
+  const v=cov.querySelector(".vinyl");
+  v.style.display="";          // mostrar el título mientras carga la portada
+  v.textContent=s.t;
+  fetchCover(s.t,s.a,cov);
+  // actualizar reproductor incrustado si tenemos track ID
+  const player=document.getElementById("rndPlayer");
+  const frame=document.getElementById("rndFrame");
+  if(TRACK_IDS[s.t]){
+    frame.src="https://open.spotify.com/embed/track/"+TRACK_IDS[s.t];
+    player.classList.add("active");
+    player.classList.remove("unavailable");
+  } else {
+    frame.src="";
+    player.classList.remove("active");
+    player.classList.add("unavailable");
+  }
+}
+
+/* ====== TEMPORIZADOR CARA A ====== */
+let tLeft=22*60, tInt=null;
+function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+":"+String(s%60).padStart(2,'0');}
+function toggleTimer(){
+  if(tInt){clearInterval(tInt);tInt=null;return;}
+  tInt=setInterval(()=>{
+    tLeft--; document.getElementById("timer").textContent=fmt(tLeft);
+    if(tLeft<=0){clearInterval(tInt);tInt=null;document.getElementById("timer").textContent="¡VUELTA!";tLeft=22*60;}
+  },1000);
+}
+
+/* ====== LÍNEA DE TIEMPO SVG ====== */
+const GCOL=["#00f0ff","#ff2e93","#ffe600"]; // dance, pop, italo
+const GNAME=["Dance/House","Pop/Rock","Italo/Bakalao"];
+let tlOff=[false,false,false]; // estilos ocultos
+
+function buildTimeline(){
+  const svg=document.getElementById("timeline");
+  const W=900,H=360,padL=40,padR=30,padB=50,padT=30;
+  const yMin=1984,yMax=1995;
+  const xFor=y=>padL+((y-yMin)/(yMax-yMin))*(W-padL-padR);
+
+  // recopilar puntos visibles agrupados por año+grupo para repartir verticalmente
+  const pts=[];
+  [0,1,2].forEach(g=>{
+    if(tlOff[g])return;
+    DATA[g].forEach(s=>pts.push({g,...s}));
+  });
+  // contar por año para apilar
+  const byYear={};
+  pts.forEach(p=>{(byYear[p.y]=byYear[p.y]||[]).push(p)});
+
+  let dots="", axis="", years="";
+  // eje
+  axis+=`<line class="tl-axis" x1="${padL}" y1="${H-padB}" x2="${W-padR}" y2="${H-padB}"/>`;
+  for(let y=yMin;y<=yMax;y++){
+    const x=xFor(y);
+    axis+=`<line class="tl-axis" x1="${x}" y1="${H-padB}" x2="${x}" y2="${H-padB+6}"/>`;
+    years+=`<text class="tl-year" x="${x}" y="${H-padB+24}">${y}</text>`;
+  }
+  // puntos: dentro de cada año, repartir en columnas hacia arriba
+  Object.keys(byYear).forEach(y=>{
+    const arr=byYear[y];
+    const x0=xFor(+y);
+    arr.forEach((p,i)=>{
+      const col=i%3, row=Math.floor(i/3);
+      const x=x0+(col-1)*14;
+      const yy=(H-padB)-18-row*26;
+      const r = p.side!=="rest"?7:5;
+      const iconic = p.side!=="rest";
+      dots+=`<circle class="tl-dot" cx="${x}" cy="${yy}" r="${r}"
+        fill="${GCOL[p.g]}" ${iconic?'stroke="#fff" stroke-width="1.5"':'opacity="0.72"'}
+        data-t="${p.t.replace(/"/g,'&quot;')}" data-a="${p.a.replace(/"/g,'&quot;')}" data-y="${p.y}" data-g="${p.g}"/>`;
+    });
+  });
+
+  const tip=`<g class="tl-tip" id="tlTip">
+      <rect x="0" y="0" width="220" height="44"></rect>
+      <text class="tt" x="12" y="20" id="tlTipT"></text>
+      <text class="ta" x="12" y="36" id="tlTipA"></text>
+    </g>`;
+
+  svg.innerHTML=axis+years+dots+tip;
+  document.getElementById("tlCount").textContent=`${pts.length} éxitos en pantalla · los de borde blanco son los himnos de Cara A/B`;
+
+  // interacción tooltip
+  const tipEl=document.getElementById("tlTip");
+  svg.querySelectorAll(".tl-dot").forEach(c=>{
+    const show=()=>{
+      document.getElementById("tlTipT").textContent=c.dataset.t;
+      document.getElementById("tlTipA").textContent=`${c.dataset.a} · ${c.dataset.y} · ${GNAME[c.dataset.g]}`;
+      const tt=document.getElementById("tlTipT"), ta=document.getElementById("tlTipA");
+      const w=Math.max(tt.getComputedTextLength(),ta.getComputedTextLength())+24;
+      tipEl.querySelector("rect").setAttribute("width",w);
+      let tx=+c.getAttribute("cx")+12, ty=+c.getAttribute("cy")-50;
+      if(tx+w>900)tx=900-w-4; if(ty<0)ty=+c.getAttribute("cy")+12;
+      tipEl.setAttribute("transform",`translate(${tx},${ty})`);
+      tipEl.style.opacity=1;
+    };
+    c.addEventListener("mouseenter",show);
+    c.addEventListener("click",()=>{show();playInTimeline(c.dataset.t,c.dataset.a);});
+    c.addEventListener("mouseleave",()=>tipEl.style.opacity=0);
+  });
+}
+function playInTimeline(t,a){
+  const player=document.getElementById("tlPlayer");
+  const frame=document.getElementById("tlFrame");
+  const now=document.getElementById("tlNow");
+  const open=document.getElementById("tlOpen");
+  if(TRACK_IDS[t]){
+    frame.src="https://open.spotify.com/embed/track/"+TRACK_IDS[t];
+    now.innerHTML=`Sonando: <b>${t}</b> · ${a}`;
+    player.classList.add("active"); player.classList.remove("unavailable");
+  } else {
+    frame.src="";
+    open.href=spotifyLink(t,a);
+    player.classList.add("unavailable"); player.classList.remove("active");
+    now.innerHTML=`<b>${t}</b> · ${a}`;
+  }
+  player.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+// leyenda filtrable
+document.getElementById("tlLegend").querySelectorAll("i").forEach(el=>{
+  el.addEventListener("click",()=>{
+    const g=+el.dataset.g; tlOff[g]=!tlOff[g];
+    el.classList.toggle("off",tlOff[g]); buildTimeline();
+  });
+});
+
+/* ====== INVITACIÓN ====== */
+const INV_FIELDS=["player","score","venue","addr","when","hours"];
+function syncInvite(){
+  const vals={};
+  INV_FIELDS.forEach(f=>{
+    const cap=f.charAt(0).toUpperCase()+f.slice(1);
+    const el=document.getElementById("i"+cap);
+    if(el) vals[f]=el.value;
+  });
+  document.querySelectorAll("[data-bind]").forEach(el=>{
+    const f=el.dataset.bind;
+    if(vals[f]!==undefined) el.textContent=vals[f];
+  });
+}
+function switchInv(n){
+  document.querySelectorAll(".inv-style").forEach(b=>b.classList.toggle("active",+b.dataset.s===n));
+  document.querySelectorAll(".inv-stage").forEach((s,i)=>s.classList.toggle("active",i===n));
+}
+
+/* ====== JUEGO ADIVINA (trivial progresivo + marcador) ====== */
+const CLUES={
+  "Rhythm Is a Dancer":["Trío alemán liderado por el rapero Turbo B; este fue su mayor éxito mundial en 1992.", "Su frase más famosa compara a alguien con 'un ritmo' que no se puede perder; una línea sobre una pizza se considera de las peores letras de la historia del pop.", "Eurodance · 1992 · el mismo grupo que hizo 'The Power'."],
+  "The Power":["Su gancho proclama tener algo que 'todo el mundo' quiere; se usó en anuncios, películas y gimnasios durante años.", "El grito es literalmente «I've got the POWER!».", "Eurodance/hip-house · 1990 · grupo alemán con el rapero Turbo B."],
+  "Pump Up the Jam":["Proyecto belga pionero; de los primeros en llevar el house a las listas de éxitos a finales de los 80.", "El título te invita a 'subir' el ritmo y dejar que tu cuerpo se mueva.", "House/hip-house · 1989 · proyecto belga de Jo Bogaert."],
+  "Ride on Time":["Proyecto italiano de piano house; su famosa voz era un sample no acreditado de Loleatta Holloway que acabó en polémica legal.", "El título suena como 'right on time' pero se escribe 'ride'.", "Italo/piano house · 1989 · proyecto italiano."],
+  "What Is Love":["Cantante nacido en Trinidad y criado en Alemania; el tema se hizo aún más famoso años después por un sketch de bailongos en un coche en Saturday Night Live.", "La pregunta del título la sigue una súplica: «baby don't hurt me».", "Eurodance · 1993 · artista germano-caribeño."],
+  "The Rhythm of the Night":["Proyecto italiano; la voz que se ve en el videoclip no era la misma que cantaba realmente en el disco.", "Habla del 'ritmo de la noche' como algo que te hace sentir bien (oh-ye-ye).", "Eurodance italiano · 1993."],
+  "No Limit":["Dúo neerlandés formado por una rapera y un MC; encadenaron varios number ones en Europa.", "El gancho repite sin parar «no no, no no no no...» y habla de no tener límites.", "Eurodance · 1993 · dúo neerlandés."],
+  "Mr. Vain":["Proyecto alemán; el tema fue número uno en una docena de países en 1993.", "Va de un hombre vanidoso y presumido: «call him Mr. Vain».", "Eurodance · 1993 · proyecto alemán."],
+  "It's My Life":["Artista nacido en Nigeria y afincado en Suecia, que mezclaba ragga y eurodance; se autoproclamaba 'rey' del género.", "Reivindica que la vida es suya y que le dejen vivirla a su manera.", "Eurodance/ragga · 1992 · artista nigeriano-sueco."],
+  "Losing My Religion":["El riff principal lo improvisó el guitarrista aprendiendo a tocar la mandolina mientras veía la tele; la banda dudaba que sirviera como single.", "El título es una expresión del sur de EE.UU. que NO va de religión, sino de 'perder los nervios'; empieza «That's me in the corner...».", "Rock alternativo · 1991 · banda de Athens, Georgia, del álbum Out of Time."],
+  "Smells Like Teen Spirit":["El título salió de una pintada que una amiga hizo en la pared del cantante, en referencia a un desodorante; él no captó la broma hasta después.", "El grito final repite «a denial, a denial...»; himno del grunge.", "Grunge · 1991 · trío de Seattle, álbum Nevermind."],
+  "Enjoy the Silence":["Banda británica de synth-pop; en el videoclip el cantante aparece vestido de rey paseando con una tumbona por paisajes solitarios.", "El mensaje es que las palabras sobran y hay que 'disfrutar del silencio'.", "Synth-pop · 1990 · banda británica, álbum Violator."],
+  "One":["De un álbum de la banda irlandesa grabado en Berlín tras la caída del Muro, en un momento de tensión que casi los separa.", "Reflexiona sobre la unidad pese a las diferencias: «we're one, but we're not the same».", "Rock · 1991 · banda irlandesa, álbum Achtung Baby."],
+  "Zombie":["Lo escribió la cantante irlandesa como protesta por un atentado del IRA que mató a dos niños en Inglaterra.", "El estribillo grita «zombie, zombie, zombie-ie-ie» con su voz quebrada característica.", "Rock alternativo · 1994 · banda irlandesa con cantante femenina."],
+  "Are You Gonna Go My Way":["Artista estadounidense con estética rockera retro de los 70; el riff de guitarra es de los más reconocibles de los 90.", "El título es una pregunta directa: «¿vas a ir por mi camino?».", "Rock · 1993 · cantante y multiinstrumentista estadounidense."],
+  "Friday I'm in Love":["Banda británica conocida por sus letras oscuras; esta canción sorprendió por ser luminosa y alegre.", "Recorre los días de la semana y declara estar enamorado el viernes.", "Pop/rock alternativo · 1992 · banda británica liderada por Robert Smith."],
+  "What's Up?":["El nombre del grupo despista: su cantante NO era rubia. El título tampoco aparece en la letra.", "El estribillo es en realidad «hey yeah yeah yeah» y pregunta «what's going on?».", "Rock · 1992 · banda estadounidense liderada por Linda Perry."],
+  "Under the Bridge":["Banda californiana de funk-rock; esta balada habla de la soledad del cantante y su pasado con las drogas en Los Ángeles.", "Personifica la ciudad: «the city I live in, the city of angels».", "Funk-rock · 1991 · banda de Los Ángeles, álbum Blood Sugar Sex Magik."],
+  "Así me gusta a mí (Exta-sí)":["Showman valenciano; el disco vendió más de un millón de copias y entró en el Guinness por aparecer en recopilatorios navideños de todo el mundo.", "Su gancho repite «esta sí, esta no» y un «chiqui-tan» imposible de olvidar.", "Bakalao patrio · 1991 · artista de la Comunidad Valenciana."],
+  "Living on My Own":["Tema en solitario de un legendario cantante británico; un remix de baile de 1993 lo convirtió en número uno póstumo.", "Habla de la soledad de quien vive solo, con scat: «dee do de de...».", "Dance/pop · 1993 (remix) · voz de un icono del rock."],
+  "Es imposible, no puede ser":["Trío valenciano fundado en 1989 por Julio 'Nexus', Fran Lenaers y Gani Manero; considerados los padres del Sonido Valencia.", "El título mismo es el gancho repetido: «es imposible, no puede ser».", "Bakalao/sonido Valencia · 1990 · sello Megabeat."],
+  "Touch Me":["Proyecto italiano de italo-house; construido sobre un sample de voz femenina muy reconocible.", "El título es una invitación directa: «tócame».", "Italo-house · 1989 · proyecto italiano."],
+  "Struggle for Pleasure":["Curiosamente nació de una pieza minimalista de 1983 del compositor belga Wim Mertens; acabó considerada casi 'el himno' del bakalao.", "Es prácticamente instrumental, con esos acordes de piano hipnóticos.", "Bakalao/Sonido Valencia · 1991 · sello Megabeat."],
+  "Café del Mar":["Trance balear que toma su nombre de un famoso bar de Ibiza; los lectores de Mixmag lo votaron mejor tema de todos los tiempos.", "Es instrumental, célebre por su melodía de sintetizador al amanecer.", "Trance · 1993 · proyecto alemán (Kid Paul y Cosmic Baby)."],
+  "The First Rebirth":["Dúo belga; este himno de 1993 sonó en toda la Ruta y se considera base del hardcore/gabber.", "Instrumental, con una melodía acelerada y épica de 'renacimiento'.", "Hardcore/mákina · 1993 · dúo belga."],
+  "Eternity":["Proyecto que se incorporó a la escena valenciana en plena Ruta, con mensaje de unidad y libertad.", "El título evoca algo eterno; melodía emotiva de pista.", "Bakalao/dance · 1992."],
+  "La tía Enriqueta":["Tema del showman valenciano de 'Así me gusta a mí', con tono humorístico; al parecer la tía Enriqueta del título existió de verdad.", "Las rimas hablan de una señora muy peculiar sobre una base ácida y progresiva.", "Bakalao patrio · 1993 · sello Bol."],
+};
+// Solo los himnos (Cara A y B) entran en el juego, y solo si tienen pistas
+const QUIZ_POOL = [...DATA[0],...DATA[1],...DATA[2]].filter(s=>(s.side==="A"||s.side==="B") && CLUES[s.t]);
+let qzCur=null, qzG=0, qzStep=0, qzScored=false;
+let qzHits=0, qzCluesTotal=0, qzRounds=0;
+
+function qzGroupOf(t){ return DATA[0].includes(t)?0:(DATA[1].includes(t)?1:2); }
+
+function quizClueText(i){
+  const s=qzCur, c=CLUES[s.t];
+  if(i===0) return `<span class="n">Pista 1 · dato curioso</span>${c[0]}`;
+  if(i===1) return `<span class="n">Pista 2 · cómo suena</span>${c[1]}`;
+  if(i===2) return `<span class="n">Pista 3 · estilo y año</span>${c[2]} <b>(Meri tenía ${s.y-1976})</b>`;
+  if(i===3){
+    const ini=s.t.replace(/[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+/g, w=>w[0]+'·'.repeat(Math.max(0,w.length-1)));
+    const nw=s.t.split(/\s+/).length;
+    return `<span class="n">Pista 4 · el título</span>Empieza por «<b>${s.t[0]}</b>», ${nw} palabra(s): <b>${ini}</b>`;
+  }
+  return "";
+}
+function qzRenderSteps(){
+  let html="";
+  for(let i=0;i<qzStep;i++) html+=`<div class="qz-step">${quizClueText(i)}</div>`;
+  document.getElementById("qzSteps").innerHTML=html;
+}
+function qzUpdateScore(){
+  document.getElementById("qzHits").textContent=qzHits;
+  document.getElementById("qzClues").textContent=qzCluesTotal;
+  document.getElementById("qzRounds").textContent=qzRounds;
+}
+function quizStart(){
+  qzCur=QUIZ_POOL[Math.floor(Math.random()*QUIZ_POOL.length)];
+  qzG=qzGroupOf(qzCur);
+  qzStep=1; qzScored=false; qzRounds++; qzCluesTotal++;
+  qzRenderSteps(); qzUpdateScore();
+  document.getElementById("qzReveal").textContent="";
+  document.getElementById("qzClue").textContent="¿La tenéis? Pedid otra pista o decid '¡Acertada!'";
+  document.getElementById("qzMain").textContent="💡 Otra pista";
+  document.getElementById("qzMain").setAttribute("onclick","quizMore()");
+  document.getElementById("qzGot").style.display="";
+  document.getElementById("qzRevealBtn").style.display="";
+  const qzp=document.getElementById("qzPlayer");
+  qzp.style.display="none";
+  qzp.classList.remove("active","unavailable");
+  document.getElementById("qzFrame").src="";
+}
+function quizMore(){
+  if(qzStep>=4){ quizReveal(); return; }
+  qzStep++; qzCluesTotal++;
+  qzRenderSteps(); qzUpdateScore();
+  if(qzStep>=4){
+    document.getElementById("qzClue").textContent="Última pista. Si no cae, toca rendirse y revelar.";
+    document.getElementById("qzMain").textContent="👀 Revelar";
+  }
+}
+function quizFinish(won){
+  if(won && !qzScored){ qzHits++; qzScored=true; qzUpdateScore(); }
+  const s=qzCur;
+  document.getElementById("qzReveal").innerHTML=
+    (won?"🎉 ":"")+s.t+"<small>"+s.a+" · "+s.y+(won?" · ¡Bien jugado!":"")+"</small>";
+  document.getElementById("qzClue").textContent="";
+  // Cargar reproductor incrustado (o mostrar mensaje si no hay track ID)
+  const qzp=document.getElementById("qzPlayer");
+  const qzf=document.getElementById("qzFrame");
+  qzp.style.display="";
+  if(TRACK_IDS[s.t]){
+    qzf.src="https://open.spotify.com/embed/track/"+TRACK_IDS[s.t];
+    qzp.classList.add("active"); qzp.classList.remove("unavailable");
+  } else {
+    qzf.src="";
+    document.getElementById("qzOpen").href=spotifyLink(s.t,s.a);
+    qzp.classList.add("unavailable"); qzp.classList.remove("active");
+  }
+  document.getElementById("qzMain").textContent="🎲 Otra ronda";
+  document.getElementById("qzMain").setAttribute("onclick","quizStart()");
+  document.getElementById("qzGot").style.display="none";
+  document.getElementById("qzRevealBtn").style.display="none";
+}
+function quizGot(){ if(qzCur) quizFinish(true); }
+function quizReveal(){ if(qzCur) quizFinish(false); }
+
+/* ====== Nº1 POR EDAD (nacida en 1976) ====== */
+const BORN=1976;
+const N1=[
+  {y:1984,t:"Lady, Lady",a:"Bravo"},
+  {y:1985,t:"Live Is Life",a:"Opus"},
+  {y:1986,t:"The Final Countdown",a:"Europe"},
+  {y:1987,t:"Need You Tonight",a:"INXS"},
+  {y:1988,t:"A Little Respect",a:"Erasure"},
+  {y:1989,t:"Ride on Time",a:"Black Box"},
+  {y:1990,t:"The Power",a:"Snap!"},
+  {y:1991,t:"Así me gusta a mí (Exta-sí)",a:"Chimo Bayo"},
+  {y:1992,t:"Rhythm Is a Dancer",a:"Snap!"},
+  {y:1993,t:"What Is Love",a:"Haddaway"},
+  {y:1994,t:"Zombie",a:"The Cranberries"},
+  {y:1995,t:"Café del Mar",a:"Energy 52"}
+];
+function buildAges(){
+  const g=document.getElementById("ageGrid");
+  g.innerHTML=N1.map((n,i)=>{
+    const age=n.y-BORN;
+    const hl=age===16;
+    const hasEmbed=!!TRACK_IDS[n.t];
+    const escName=(n.t+'|'+n.a).replace(/'/g,"\\'").replace(/"/g,'&quot;');
+    const onclick = hasEmbed
+      ? `onclick="playInAge('${TRACK_IDS[n.t]}','${escName}',${i})"`
+      : `onclick="window.open('${spotifyLink(n.t,n.a)}','_blank')"`;
+    return `<div class="age-card ${hl?'hl':''}" id="ageCard-${i}" ${onclick} style="cursor:pointer">
+      ${hl?'<span class="tag16">¡TENÍAMOS 16!</span>':''}
+      <div class="yr">${n.y}</div>
+      <div class="age">${age}<small>años</small></div>
+      <div class="song">${n.t}</div>
+      <div class="art">${n.a}</div>
+    </div>`;
+  }).join("");
+}
+function playInAge(trackId, escName, i){
+  const [t,a]=escName.replace(/&quot;/g,'"').split('|');
+  const player=document.getElementById("ageRPlayer");
+  const frame=document.getElementById("ageFrame");
+  const now=document.getElementById("ageNow");
+  frame.src="https://open.spotify.com/embed/track/"+trackId;
+  now.innerHTML=`Sonando: <b>${t}</b> · ${a}`;
+  player.classList.add("active"); player.classList.remove("unavailable");
+  document.querySelectorAll(".age-card.playing").forEach(c=>c.classList.remove("playing"));
+  document.getElementById("ageCard-"+i).classList.add("playing");
+  player.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function playInVinyl(trackId, escName){
+  const [t,a]=escName.replace(/&quot;/g,'"').split('|');
+  const player=document.getElementById("vinPlayer");
+  const frame=document.getElementById("vinFrame");
+  const now=document.getElementById("vinNow");
+  frame.src="https://open.spotify.com/embed/track/"+trackId;
+  now.innerHTML=`Sonando: <b>${t}</b> · ${a}`;
+  player.classList.add("active"); player.classList.remove("unavailable");
+  player.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+
+/* ====== TV DE AQUELLA ÉPOCA ====== */
+const SINTONIAS=[
+  {t:"Bola de Dragón (opening)", s:"Bola de Dragón / Dragon Ball", y:1989, n:"Anime japonés de Akira Toriyama; en España la sintonía 'Bola de Dragón' fue interpretada por el actor de doblaje Jordi Vila y traducida por Amado Jaen.", id:"https://open.spotify.com/playlist/4xX8RDoBuCloblwmBGtR65"},
+  {t:"Luz, fuego y destrucción", s:"Bola de Dragón Z", y:1992, n:"Opening en castellano de Dragon Ball Z; arrasó entre los niños de los 90.", id:"https://open.spotify.com/track/7pHug3t0XkdLTknZWjkbIS"},
+  {t:"La Abeja Maya", s:"La Abeja Maya", y:1978, n:"Anime japonés basado en el libro de Waldemar Bonsels; en España la cantó Karina y se hizo eterna.", id:"https://open.spotify.com/playlist/0mmNF16AjTMFlBJmEjlxg8"},
+  {t:"D'Artacán y los Tres Mosqueperros", s:"D'Artacán y los Tres Mosqueperros", y:1982, n:"Coproducción española-japonesa de BRB Internacional con música de Guido y Maurizio De Angelis; la versión final 'a ladridos' es legendaria.", id:"https://open.spotify.com/track/1jcHFS977X9dTZSuQCaJCi"},
+  {t:"Campeones (Oliver y Benji)", s:"Campeones / Oliver y Benji", y:1990, n:"Anime de fútbol japonés; la versión española la adaptó Carlos Toro (el mismo que escribió 'Resistiré' del Dúo Dinámico).", id:"https://open.spotify.com/track/6B4XeMyN3KkTE8tArmjl76"},
+  {t:"Heidi", s:"Heidi", y:1975, n:"Anime de Isao Takahata; la versión alemana de Gitti und Erika es de las canciones en alemán más reconocibles del mundo.", id:"https://open.spotify.com/track/3sSS2OXwJYBy5XwJTTDyuy"},
+  {t:"Marco", s:"De los Apeninos a los Andes (Marco)", y:1977, n:"Anime de Nippon Animation; canción de apertura en castellano interpretada por la cantante chilena María Elena Bargagli.", id:"https://open.spotify.com/album/21gzoxt3u3eYf13qqOE6P0"},
+  {t:"David el Gnomo", s:"David el Gnomo", y:1985, n:"Serie animada española de BRB; el opening con la voz de Cris Juanico y los enanos a caballo de zorros era inconfundible.", id:"https://open.spotify.com/track/6Gy51tM0x48Sj1knSLCy5Q"},
+  {t:"Los Fraggle Rock", s:"Los Fraggle", y:1984, n:"Serie de marionetas de Jim Henson; opening funky con 'Gobo, Musi, Rosi, Dudo y Bombo'.", id:"https://open.spotify.com/track/5QIkpHVThnrfsK4wOOxRIP"},
+  {t:"Ulises 31", s:"Ulises 31", y:1985, n:"Coproducción francesa-japonesa que mezclaba la Odisea con ciencia ficción; sintonía épica icónica.", id:"https://open.spotify.com/track/0zlfmgemuUUBTmlSTSHPsD"},
+  {t:"Mazinger Z", s:"Mazinger Z", y:1978, n:"Anime de robots gigantes de Go Nagai; la sintonía '¡puños fuera!' fue de las primeras en hacer historia en TVE.", id:"https://open.spotify.com/playlist/2sQklmr11v4L1bXhqyDLjP"},
+  {t:"Patoaventuras", s:"Patoaventuras (DuckTales)", y:1990, n:"Serie de Disney con Gilito McPato; la sintonía en castellano la cantó Mónica Capel, ex-componente de los Nins.", id:"https://open.spotify.com/track/7cHPk03M5ZVbfqXF6QFnVw"},
+  {t:"Chip y Chop", s:"Chip y Chop: los Guardianes Rescatadores", y:1991, n:"Otra serie Disney en horario infantil; opening cantado también por Mónica Capel.", id:"https://open.spotify.com/track/3f7VlYzkPMfokla5dkqBT4"},
+  {t:"Comando G (La batalla de los planetas)", s:"Comando G", y:1980, n:"Una de las series más recordadas; coro 'Comando G, Comando G' inolvidable.", id:"https://open.spotify.com/track/2odDYDU24DT7oleYp5QVly"},
+  {t:"Érase una vez... el cuerpo humano", s:"Érase una vez... el cuerpo humano", y:1989, n:"Educativa francesa de Albert Barillé; sintonía instrumental que evoca clase de Cono.", id:"https://open.spotify.com/track/4l9ptfFEiyygGqmmR9aaQk"},
+  {t:"La llamada de los gnomos", s:"La llamada de los gnomos", y:1987, n:"Spin-off de 'David el Gnomo'; protagonizada por el juez Klaus y su ayudante Dany.", id:"https://open.spotify.com/track/1LN3naO58m1FGiArA8HBQ5"},
+  {t:"Sailor Moon", s:"Sailor Moon", y:1993, n:"Anime mágico que marcó a una generación de niñas a principios de los 90.", id:"https://open.spotify.com/playlist/4ssNVe64tekQRsoeatDyeI"},
+  {t:"Los Caballeros del Zodiaco (Saint Seiya)", s:"Los Caballeros del Zodiaco", y:1990, n:"Anime de los 'Santos' con armaduras; sintonía épica japonesa primero en latino y luego en castellano.", id:"https://open.spotify.com/playlist/1CBvHoxsyVgxPz5jxLypqs"},
+  {t:"Mofli, el último koala", s:"Mofli, el último koala", y:1987, n:"Serie española del estudio EQUIP; ecologista, una niña amiga del último koala.", id:"https://open.spotify.com/track/7vCbqWQZkZsG4qQWIuMeEi"},
+  {t:"Abracadabra (La Bola de Cristal)", s:"La Bola de Cristal", y:1984, n:"Programa infantil mítico de TVE; canción interpretada por Alaska: '¡Qué tiene esta bola que a todo el mundo le mola!'", id:"https://open.spotify.com/track/0ZwG6ttqzRJpThmgW6IDCZ"},
+];
+
+const JINGLES=[
+  {q:"Yo soy aquel negrito del África tropical, que cultivando cantaba la canción del Cola Cao", m:"Cola Cao (clásico desde 1955, sonó toda la década)"},
+  {q:"Bic Naranja, Bic Cristal, dos escrituras a elegir", m:"Bolígrafos Bic"},
+  {q:"Vuelve a casa, vuelve, por Navidad", m:"Turrón El Almendro"},
+  {q:"¡Queremos turrón, turrón, turrón... pero que sea Antiu Xixona!", m:"Turrón Antiu Xixona"},
+  {q:"Somos los Conguitos y estamos requete-bien, vestidos de chocolate con cuerpo de cacahuet", m:"Conguitos"},
+  {q:"Hola, soy Edu... ¡Feliz Navidad!", m:"Airtel (1997, hoy Vodafone)"},
+  {q:"Busque, compare, y si encuentra algo mejor, cómprelo", m:"Detergente Colón"},
+  {q:"Filvit cham-pú, Filvit cham-pú...", m:"Champú antipiojos Filvit"},
+  {q:"Días Azules, los Días Azules de Renfe", m:"RENFE (voz: 'Sherpa' de Barón Rojo)"},
+  {q:"La chispa de la vida", m:"Coca-Cola"},
+];
+
+function sintoniaLink(s){
+  if(s.id) return s.id;  // s.id contiene la URL completa (track/playlist/album)
+  return "https://open.spotify.com/search/"+encodeURIComponent(s.t+" "+s.s);
+}
+function sintoniaEmbed(s){
+  if(!s.id || !s.id.includes("open.spotify.com/")) return null;
+  return s.id.replace("open.spotify.com/","open.spotify.com/embed/");
+}
+function playInTop(i){
+  const s=SINTONIAS[i];
+  const emb=sintoniaEmbed(s);
+  if(!emb) return;
+  const player=document.getElementById("tvPlayer");
+  const frame=document.getElementById("tpFrame");
+  const now=document.getElementById("tpNow");
+  // si la misma tarjeta se vuelve a pulsar, no recarga (evita reinicio)
+  if(frame.dataset.cur===String(i)){
+    // hacer scroll suave al reproductor por si el usuario está abajo
+    player.scrollIntoView({behavior:"smooth", block:"nearest"});
+    return;
+  }
+  frame.src=emb;
+  frame.dataset.cur=String(i);
+  now.innerHTML=`Sonando: <b>${s.t}</b> · ${s.s}`;
+  player.classList.add("active");
+  // marcar tarjeta activa
+  document.querySelectorAll(".tv-card.playing").forEach(c=>c.classList.remove("playing"));
+  const card=document.getElementById("tvCard-"+i);
+  if(card) card.classList.add("playing");
+  // scroll suave al reproductor (por si pulsa una sintonía de la segunda fila)
+  player.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+function buildTV(){
+  const g=document.getElementById("tvGrid");
+  g.innerHTML=SINTONIAS.map((s,i)=>{
+    const url=sintoniaLink(s);
+    const emb=sintoniaEmbed(s);
+    const playBtn = emb
+      ? `<button class="tv-btn play" onclick="playInTop(${i})">▶ Escuchar aquí</button>`
+      : "";
+    return `
+    <div class="tv-card" id="tvCard-${i}" title="${s.s}">
+      <div class="tv-emoji">📺</div>
+      <div class="tv-title">${s.t}</div>
+      <div class="tv-meta">${s.s} · ${s.y}</div>
+      <div class="tv-note">${s.n}</div>
+      <div class="tv-actions">
+        ${playBtn}
+        <a class="tv-btn open" href="${url}" target="_blank" rel="noopener">↗ Abrir en Spotify</a>
+      </div>
+    </div>`;
+  }).join("");
+  const j=document.getElementById("jingleGrid");
+  j.innerHTML=JINGLES.map(x=>`
+    <div class="jingle">
+      <div class="jq">${x.q}</div>
+      <span class="jm">${x.m}</span>
+    </div>`).join("");
+}
+
+renderPanes();
+randomTrack();
+buildTimeline();
+buildAges();
+buildTV();
+</script>
+</body>
+</html>
