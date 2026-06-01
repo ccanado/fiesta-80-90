@@ -161,6 +161,7 @@
   .tab[data-t="0"].active{background:var(--neon-cyan)}
   .tab[data-t="1"].active{background:var(--neon-pink)}
   .tab[data-t="2"].active{background:var(--neon-yellow)}
+  .tab[data-t="3"].active{background:var(--neon-purple)}
   .tabpane{display:none;animation:fade .4s}
   .tabpane.active{display:block}
   @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
@@ -633,6 +634,7 @@
       <div class="tab active" data-t="0" onclick="switchTab(0)">Dance / Eurodance / House</div>
       <div class="tab" data-t="1" onclick="switchTab(1)">Pop / Rock de la época</div>
       <div class="tab" data-t="2" onclick="switchTab(2)">Italo / Bakalao patrio y europeo</div>
+      <div class="tab" data-t="3" onclick="switchTab(3)">Cantábamos en castellano</div>
     </div>
 
     <div class="sec-player" id="vinPlayer">
@@ -647,6 +649,7 @@
     <div class="tabpane active" id="pane0"></div>
     <div class="tabpane" id="pane1"></div>
     <div class="tabpane" id="pane2"></div>
+    <div class="tabpane" id="pane3"></div>
   </section>
 
   <!-- ===== LÍNEA DE TIEMPO SVG ===== -->
@@ -657,6 +660,7 @@
       <i data-g="0"><span class="dot" style="background:var(--neon-cyan)"></span>Dance / Eurodance / House</i>
       <i data-g="1"><span class="dot" style="background:var(--neon-pink)"></span>Pop / Rock</i>
       <i data-g="2"><span class="dot" style="background:var(--neon-yellow)"></span>Italo / Bakalao</i>
+      <i data-g="3"><span class="dot" style="background:var(--neon-purple)"></span>Cantábamos en castellano</i>
     </div>
     <div class="sec-player" id="tlPlayer">
       <div class="sp-head">
@@ -1016,6 +1020,68 @@ const DATA = {
       note:"La melodía del Tetris en versión rave; puro guiño recreativo."},
     {t:"Popcorn", a:"M&H Band", y:1987, side:"rest",
       note:"Remake del clásico electrónico de 1969 lanzado por la banda francesa M&H Band en 1987; los remixes de 1988 (Butter Mix, Swedish Remix) sonaron en discotecas y sesiones de bakalao europeas."}
+  ],
+  3: [ /* Cantábamos en castellano */
+    {t:"Entre dos tierras", a:"Héroes del Silencio", y:1990, side:"A",
+      note:"Single del álbum Senderos de traición; el riff y el «déjame, que yo solo puedo» convirtieron a Bunbury y los suyos en banda de estadio."},
+    {t:"20 de Abril", a:"Celtas Cortos", y:1992, side:"A",
+      note:"El folk-rock vallisoletano de Jesús Cifuentes; la carta-canción «hola amiga me alegra volver a saludarte» se hizo himno generacional."},
+    {t:"Cadillac solitario", a:"Loquillo y los Trogloditas", y:1983, side:"A",
+      note:"Del álbum El ritmo del garaje; el rockabilly madrileño con la mejor letra urbana del rock español de los 80."},
+    {t:"Devuélveme a mi chica", a:"Hombres G", y:1985, side:"A",
+      note:"Del primer LP de los Hombres G; la pelea con el novio rival que todo adolescente cantó alguna vez."},
+    {t:"La chica de ayer", a:"Nacha Pop", y:1980, side:"A",
+      note:"Antonio Vega escribió la canción a los 19 años; pieza fundacional de la movida madrileña, votada mejor canción del pop español del siglo XX."},
+    {t:"Maldito duende", a:"Héroes del Silencio", y:1991, side:"B",
+      note:"Del álbum Senderos de traición; balada épica con el sello inconfundible de Bunbury que se convirtió en otro himno de estadios."},
+    {t:"El sitio de mi recreo", a:"Antonio Vega", y:1992, side:"B",
+      note:"Del álbum del mismo nombre; Antonio Vega en solitario tras Nacha Pop, una de las baladas más bellas del pop español."},
+    {t:"Bailar pegados", a:"Sergio Dalma", y:1991, side:"B",
+      note:"Representó a España en Eurovisión 1991 quedando cuarto. EL lento por excelencia de las discotecas de los 90."},
+    {t:"Hijo de la luna", a:"Mecano", y:1986, side:"B",
+      note:"Del álbum Entre el cielo y el suelo; la leyenda gitana convertida en uno de los temas más conocidos de Mecano internacionalmente."},
+    {t:"Alba", a:"Antonio Flores", y:1994, side:"B",
+      note:"Del álbum Cosas mías; Antonio Flores compuso esta canción para su hija Alba (hoy actriz). Murió pocos meses después de publicarla."},
+    {t:"Como un burro amarrado en la puerta del baile", a:"El Último de la Fila", y:1988, side:"rest",
+      note:"Del álbum Como la cabeza al sombrero; otro hitazo del Último de la Fila con uno de los títulos más recordados del rock español."},
+    {t:"Insurrección", a:"El Último de la Fila", y:1986, side:"rest",
+      note:"Del álbum Enemigos de lo ajeno; otro de los temas más cantados del rock catalán-español."},
+    {t:"Maneras de vivir", a:"Leño", y:1981, side:"rest",
+      note:"Tema mítico de Leño con Rosendo a la cabeza; aunque sea anterior al rango, su himno «¡maneras de vivir, maneras de vivir!» es eterno."},
+    {t:"Veneno en la piel", a:"Radio Futura", y:1990, side:"rest",
+      note:"Del álbum Veneno en la piel; uno de los mayores hits de Radio Futura y de Santiago Auserón, con su mezcla de pop bailable y poesía urbana."},
+    {t:"Escuela de calor", a:"Radio Futura", y:1984, side:"rest",
+      note:"Del álbum La ley del desierto / La ley del mar; el clásico tropical-rockero del verano español."},
+    {t:"El Límite", a:"La Frontera", y:1990, side:"rest",
+      note:"Del álbum del mismo nombre; el mayor éxito comercial del grupo madrileño liderado por Javier Andreu, con su característico sonido tex-mex."},
+    {t:"Esa noche", a:"091", y:1992, side:"rest",
+      note:"Del álbum Doce canciones sin piedad, producido por Joaquín Sabina; los Cero Noventa y Uno de Granada en su mejor momento."},
+    {t:"Y nos dieron las diez", a:"Joaquín Sabina", y:1992, side:"rest",
+      note:"Del álbum Física y química; la historia del torero y la posadera contada con Sabina en su mejor forma."},
+    {t:"A quién le importa", a:"Alaska y Dinarama", y:1986, side:"rest",
+      note:"Del álbum Canciones profanas; himno absoluto de orgullo y libertad, coreado en discotecas y manifestaciones por igual."},
+    {t:"Bailando", a:"Alaska y los Pegamoides", y:1980, side:"rest",
+      note:"Tema fundacional de la movida madrileña; el primer hit de Olvido Gara antes de Dinarama y Fangoria."},
+    {t:"Hawaii-Bombay", a:"Mecano", y:1984, side:"rest",
+      note:"Del álbum Ya viene el sol; el verano más festivo de Ana Torroja y los hermanos Cano."},
+    {t:"Mujer contra mujer", a:"Mecano", y:1988, side:"rest",
+      note:"Del álbum Descanso dominical; una de las primeras canciones del pop español que hablaba abiertamente del amor entre mujeres."},
+    {t:"Una rosa es una rosa", a:"Mecano", y:1991, side:"rest",
+      note:"Del álbum Aidalai; el último gran éxito de Mecano antes de su separación."},
+    {t:"Marta tiene un marcapasos", a:"Hombres G", y:1986, side:"rest",
+      note:"Del álbum La cagaste... Burt Lancaster; uno de los singles más reconocibles de los Hombres G."},
+    {t:"Venezia", a:"Hombres G", y:1986, side:"rest",
+      note:"Del álbum La cagaste... Burt Lancaster; otro hit infaltable del repertorio de David Summers."},
+    {t:"En algún lugar", a:"Duncan Dhu", y:1985, side:"rest",
+      note:"Del álbum Canciones; los donostiarras con su rockabilly elegante y las baladas de Mikel Erentxun."},
+    {t:"Cien gaviotas", a:"Duncan Dhu", y:1986, side:"rest",
+      note:"Del álbum El grito del tiempo; otra de esas canciones que parece que siempre han estado ahí."},
+    {t:"Piensa en mí", a:"Luz Casal", y:1991, side:"rest",
+      note:"Versión de la copla de Agustín Lara incluida en la banda sonora de Tacones lejanos de Pedro Almodóvar."},
+    {t:"Cosas de la edad", a:"Modestia Aparte", y:1990, side:"rest",
+      note:"Tema título del segundo álbum del grupo madrileño; pop adolescente con estribillo coreado en cada fiesta de cumpleaños de los 90."},
+    {t:"Pero a tu lado", a:"Los Secretos", y:1995, side:"rest",
+      note:"Del álbum Dos caras distintas; los hermanos Urquijo en su forma más melancólica y luminosa."}
   ]
 };
 
@@ -1092,6 +1158,36 @@ const TRACK_IDS={
   "Strange":"59vwCDYJ7E31FpjPJtFlAD",
   "La tía Enriqueta":"7o64ZX4QSqGMPCf0upOWwJ",
   "Bombas":"1D3yebEqdfyojqfeb1RWex",
+  "Entre dos tierras":"7BYqVvoXpQFhs4jJ0qqNZt",
+  "20 de Abril":"7ifOnwJC0oH7cfbJQbUye1",
+  "Cadillac solitario":"3VNxbWlw9oVvxSnSbeiCBb",
+  "Devuélveme a mi chica":"1Wrzhfa5bNlqvsnCztz190",
+  "La chica de ayer":"4chpfrjIqrOPshlDU4ZrKe",
+  "Maldito duende":"7vcDJCAO356RYkCfiUozmE",
+  "El sitio de mi recreo":"2tkMVjFwDzUCG3ulmz3fCb",
+  "Bailar pegados":"4QkQmdvFjEVvjc1ONi6t6N",
+  "Hijo de la luna":"7g3g2sqevicvurLTZ75JTA",
+  "Alba":"6uojMoKuVkIVEeqH4JCBAr",
+  "Como un burro amarrado en la puerta del baile":"5cjEWYDWMXlTZr8Rehu2bl",
+  "Insurrección":"7803rmspVDTFR78bj5KLPk",
+  "Maneras de vivir":"7kCiAaismDVaCjpyGF3YJB",
+  "Veneno en la piel":"3RDMd9JiKdVik8zjGhZ0wJ",
+  "Escuela de calor":"1N1QL28bnJWt7u0dbJHyR0",
+  "El Límite":"0NFcUhw2uKzX0zqH81tWOu",
+  "Esa noche":"5pzXnnSWM80orv7pNIe0nV",
+  "Y nos dieron las diez":"1eCie6lwjb4crxeAvkRaSi",
+  "A quién le importa":"7Eb5AYiiGWItBNddlmxvnh",
+  "Bailando":"0OteyYh6inrfcil1XGwC3r",
+  "Hawaii-Bombay":"7aoVKAerf2ie4Vxg8BU2t1",
+  "Mujer contra mujer":"3JdRjSY0KcTbFD6fHIu0Qc",
+  "Una rosa es una rosa":"4t4JJ0RG2KWhrTVdSrp7O9",
+  "Marta tiene un marcapasos":"1XvfncS1t4BNkh37klHeqj",
+  "Venezia":"1wncA7mz0ntqvZ8UzFokGk",
+  "En algún lugar":"3UIENhLRdFIOuRan92cAQu",
+  "Cien gaviotas":"020Gj87SqDRvzGHELzcCEc",
+  "Piensa en mí":"794LRMm5vapB2wM0pKzPuT",
+  "Cosas de la edad":"0wkQHjULGZeZC15hOl9jl4",
+  "Pero a tu lado":"3JOXwHPhtdRU3kYKcf64Gj",
 };
 
 /* enlace a Spotify: usa el track ID si está mapeado; si no, búsqueda */
@@ -1173,7 +1269,7 @@ function trackHTML(s,k,i){
 function renderPanes(){
   const ORDER=["A","B","rest"];
   const CLS={A:"",B:"b",rest:"rest"};
-  for(const k of [0,1,2]){
+  for(const k of [0,1,2,3]){
     const list=DATA[k];
     const pane=document.getElementById("pane"+k);
     let html="";
@@ -1211,7 +1307,7 @@ function switchTab(n){
 }
 
 /* ====== REPRODUCTOR ALEATORIO ====== */
-const ALL=[...DATA[0],...DATA[1],...DATA[2]];
+const ALL=[...DATA[0],...DATA[1],...DATA[2],...DATA[3]];
 function randomTrack(){
   const s=ALL[Math.floor(Math.random()*ALL.length)];
   document.getElementById("rndTitle").textContent=s.t;
@@ -1251,9 +1347,9 @@ function toggleTimer(){
 }
 
 /* ====== LÍNEA DE TIEMPO SVG ====== */
-const GCOL=["#00f0ff","#ff2e93","#ffe600"]; // dance, pop, italo
-const GNAME=["Dance/House","Pop/Rock","Italo/Bakalao"];
-let tlOff=[false,false,false]; // estilos ocultos
+const GCOL=["#00f0ff","#ff2e93","#ffe600","#b14aff"]; // dance, pop, italo, castellano
+const GNAME=["Dance / Eurodance / House","Pop / Rock","Italo / Bakalao","Cantábamos en castellano"];
+let tlOff=[false,false,false,false]; // estilos ocultos
 
 function buildTimeline(){
   const svg=document.getElementById("timeline");
@@ -1263,7 +1359,7 @@ function buildTimeline(){
 
   // recopilar puntos visibles agrupados por año+grupo para repartir verticalmente
   const pts=[];
-  [0,1,2].forEach(g=>{
+  [0,1,2,3].forEach(g=>{
     if(tlOff[g])return;
     DATA[g].forEach(s=>{ if(s.y>=yMin && s.y<=yMax) pts.push({g,...s}); });
   });
@@ -1396,13 +1492,23 @@ const CLUES={
   "The First Rebirth":["Dúo belga; este himno de 1993 sonó en toda la Ruta y se considera base del hardcore/gabber.", "Instrumental, con una melodía acelerada y épica de 'renacimiento'.", "Hardcore/mákina · 1993 · dúo belga."],
   "Eternity":["Proyecto que se incorporó a la escena valenciana en plena Ruta, con mensaje de unidad y libertad.", "El título evoca algo eterno; melodía emotiva de pista.", "Bakalao/dance · 1992."],
   "La tía Enriqueta":["Tema del showman valenciano de 'Así me gusta a mí', con tono humorístico; al parecer la tía Enriqueta del título existió de verdad.", "Las rimas hablan de una señora muy peculiar sobre una base ácida y progresiva.", "Bakalao patrio · 1993 · sello Bol."],
+  "Entre dos tierras":["Banda zaragozana liderada por Enrique Bunbury; con esta canción saltaron al gran público y la convirtieron en banda de estadio.", "El estribillo dice «déjame, que yo solo puedo, déjame, que voy a estar bien».", "Rock español · 1990 · del álbum Senderos de traición."],
+  "20 de Abril":["Banda vallisoletana de folk-rock con un saxofonista característico; la canción es una carta-canción de reencuentro entre amigos.", "Empieza así: «hola amiga me alegra volver a saludarte».", "Folk-rock español · 1992 · liderada por Jesús Cifuentes."],
+  "Cadillac solitario":["Rockabilly madrileño-catalán liderado por José María Sanz; describe una madrugada urbana solitaria en un coche americano.", "La letra evoca «pasar por la Castellana» en ese cochazo, esperando a alguien.", "Rock español · 1983 · del álbum El ritmo del garaje."],
+  "Devuélveme a mi chica":["Grupo madrileño formado por David Summers, Daniel Mezquita, Rafael Gutiérrez y Javi Molina; la canción narra una pelea con el novio rival de la chica.", "El estribillo se grita: «¡devuélveme a mi chica o vas a tener un disgusto, idiota!».", "Pop adolescente · 1985 · del primer LP del grupo."],
+  "La chica de ayer":["Tema escrito por Antonio Vega a los 19 años; votado mejor canción del pop español del siglo XX por la revista Rockdelux.", "Habla de un parque al sol y una chica con falda corta a la que mira pasar.", "Pop · 1980 · del primer álbum del grupo madrileño."],
+  "Maldito duende":["Otra balada épica de la banda zaragozana del «déjame, que yo solo puedo»; del mismo álbum que aquel hit.", "Habla de un maldito duende que «se escapa por la grieta del cristal».", "Rock español · 1991 · del álbum Senderos de traición."],
+  "El sitio de mi recreo":["El autor compuso esta balada en solitario, años después de su grupo más famoso, sobre los recuerdos de la infancia.", "Habla de «aquel sitio donde el aire huele a destrucción».", "Pop melódico · 1992 · disco homónimo de Antonio Vega."],
+  "Bailar pegados":["Representó a España en Eurovisión 1991 con esta canción y quedó cuarto; fue número uno todo aquel verano.", "El estribillo: «bailar pegados es bailar».", "Balada pop · 1991 · interpretado por Sergio Dalma."],
+  "Hijo de la luna":["Trío madrileño formado por Ana Torroja y los hermanos Cano; la canción narra una leyenda gitana sobre una mujer que pacta con la luna.", "«Tonto el que no entienda, cuenta una leyenda...».", "Pop · 1986 · del álbum Entre el cielo y el suelo."],
+  "Alba":["Cantautor madrileño hijo de Lola Flores; compuso esta canción para su hija (hoy actriz) y murió pocos meses después de publicarla.", "Es una nana íntima dedicada al nombre de su pequeña.", "Pop · 1994 · del álbum Cosas mías."],
 };
 // Solo los himnos (Cara A y B) entran en el juego, y solo si tienen pistas
-const QUIZ_POOL = [...DATA[0],...DATA[1],...DATA[2]].filter(s=>(s.side==="A"||s.side==="B") && CLUES[s.t]);
+const QUIZ_POOL = [...DATA[0],...DATA[1],...DATA[2],...DATA[3]].filter(s=>(s.side==="A"||s.side==="B") && CLUES[s.t]);
 let qzCur=null, qzG=0, qzStep=0, qzScored=false;
 let qzHits=0, qzCluesTotal=0, qzRounds=0;
 
-function qzGroupOf(t){ return DATA[0].includes(t)?0:(DATA[1].includes(t)?1:2); }
+function qzGroupOf(t){ return DATA[0].includes(t)?0:(DATA[1].includes(t)?1:(DATA[2].includes(t)?2:3)); }
 
 function quizClueText(i){
   const s=qzCur, c=CLUES[s.t];
