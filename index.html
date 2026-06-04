@@ -90,6 +90,9 @@
     padding:24px;margin-top:32px;backdrop-filter:blur(8px);
     box-shadow:0 20px 60px rgba(0,0,0,.4);
   }
+  /* El Tocadiscos necesita stacking context superior para que el buscador
+     pueda mostrar el desplegable por encima del panel siguiente */
+  #rndPanel{position:relative;z-index:20}
   .panel-title{font-family:'Audiowide',sans-serif;font-size:1.1rem;letter-spacing:2px;
     text-transform:uppercase;color:var(--neon-cyan);margin-bottom:6px;display:flex;align-items:center;gap:10px}
   .panel-title::before{content:"◆";color:var(--neon-pink)}
@@ -122,6 +125,46 @@
   .rnd-player:not(.active):not(.unavailable)::before{content:"🎵 Pulsa Otra al azar";display:block;
     padding:14px;text-align:center;font-family:'Audiowide',sans-serif;font-size:.75rem;letter-spacing:1px;
     color:rgba(244,236,255,.4)}
+
+  /* ===== Buscador del Tocadiscos ===== */
+  .rnd-search{position:relative;margin-top:14px}
+  .rnd-search-input-wrap{position:relative;display:flex;align-items:center;gap:10px;
+    background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;
+    padding:8px 12px;transition:.2s}
+  .rnd-search-input-wrap:focus-within{border-color:var(--neon-cyan);
+    box-shadow:0 0 12px rgba(0,240,255,.18)}
+  .rnd-search-icon{font-size:1rem;color:rgba(244,236,255,.5);user-select:none}
+  .rnd-search-input{flex:1;background:transparent;border:0;outline:none;color:#fff;
+    font-family:'Outfit',sans-serif;font-size:.95rem;padding:4px 0}
+  .rnd-search-input::placeholder{color:rgba(244,236,255,.4)}
+  .rnd-search-clear{background:none;border:0;color:rgba(244,236,255,.5);cursor:pointer;
+    font-size:1.1rem;padding:0 4px;line-height:1;transition:.2s;display:none}
+  .rnd-search-clear:hover{color:var(--neon-pink)}
+  .rnd-search-input-wrap.has-text .rnd-search-clear{display:block}
+  .rnd-search-counter{font-size:.72rem;color:rgba(244,236,255,.45);
+    font-family:'Audiowide',sans-serif;letter-spacing:1px;white-space:nowrap}
+
+  .rnd-search-results{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:50;
+    background:#0a0118;border:1px solid var(--neon-cyan);border-radius:10px;
+    box-shadow:0 8px 24px rgba(0,0,0,.55);max-height:340px;overflow-y:auto;
+    display:none;scrollbar-width:thin;scrollbar-color:var(--neon-cyan) rgba(255,255,255,.05)}
+  .rnd-search-results.open{display:block}
+  .rnd-search-item{display:grid;grid-template-columns:6px 1fr auto;gap:12px;align-items:center;
+    padding:9px 14px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.04);
+    transition:background .15s}
+  .rnd-search-item:last-child{border-bottom:none}
+  .rnd-search-item:hover{background:rgba(0,240,255,.08)}
+  .rnd-search-item .rs-dot{width:6px;height:18px;border-radius:3px}
+  .rnd-search-item .rs-main{display:flex;flex-direction:column;gap:1px;min-width:0}
+  .rnd-search-item .rs-title{color:#fff;font-size:.88rem;font-weight:500;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rnd-search-item .rs-artist{color:rgba(244,236,255,.55);font-size:.74rem;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rnd-search-item .rs-year{color:var(--neon-yellow);font-family:'Audiowide',sans-serif;
+    font-size:.7rem;letter-spacing:1px}
+  .rnd-search-item mark{background:rgba(255,230,0,.22);color:#fff;padding:0 2px;border-radius:2px}
+  .rnd-search-empty{padding:18px 14px;text-align:center;color:rgba(244,236,255,.5);
+    font-size:.85rem;line-height:1.5}
 
   /* ===== Reproductor por sección (Vinilo, Nº1) ===== */
   .sec-player{margin:0 0 14px;border-radius:12px;overflow:hidden;border:1px solid var(--line);
@@ -713,7 +756,7 @@
   </section>
 
   <!-- ===== REPRODUCTOR ALEATORIO ===== -->
-  <section class="panel">
+  <section class="panel" id="rndPanel">
     <div class="panel-title">Tocadiscos Aleatorio</div>
     <div class="hint">Dale a la aguja y deja que el azar elija un recuerdo. La canción aparecerá en el reproductor de aquí abajo; dale al play para escucharla.</div>
     <div class="player">
@@ -734,6 +777,16 @@
         <iframe id="rndFrame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
         <div class="rnd-msg">Este tema no está disponible para reproducción incrustada. Usa el botón "▶ Spotify" para abrirlo en la app.</div>
       </div>
+    </div>
+    <div class="rnd-search">
+      <div class="rnd-search-input-wrap" id="rndSearchWrap">
+        <span class="rnd-search-icon">🔍</span>
+        <input type="text" class="rnd-search-input" id="rndSearchInput"
+          placeholder="¿Buscas alguna en concreto? Escribe título o artista (Mecano, Bombas, Heroes…)" autocomplete="off">
+        <button class="rnd-search-clear" id="rndSearchClear" type="button" aria-label="Limpiar búsqueda">✕</button>
+        <span class="rnd-search-counter" id="rndSearchCounter"></span>
+      </div>
+      <div class="rnd-search-results" id="rndSearchResults"></div>
     </div>
   </section>
 
@@ -1529,8 +1582,8 @@ function switchTab(n){
 
 /* ====== REPRODUCTOR ALEATORIO ====== */
 const ALL=[...DATA[0],...DATA[1],...DATA[2],...DATA[3],...DATA[4]];
-function randomTrack(){
-  const s=ALL[Math.floor(Math.random()*ALL.length)];
+
+function loadTrack(s){
   document.getElementById("rndTitle").textContent=s.t;
   document.getElementById("rndArtist").textContent=s.a;
   document.getElementById("rndYear").textContent=s.y;
@@ -1539,10 +1592,9 @@ function randomTrack(){
   const cov=document.getElementById("rndCover");
   cov.style.backgroundImage="";
   const v=cov.querySelector(".vinyl");
-  v.style.display="";          // mostrar el título mientras carga la portada
+  v.style.display="";
   v.textContent=s.t;
   fetchCover(s.t,s.a,cov);
-  // actualizar reproductor incrustado si tenemos track ID
   const player=document.getElementById("rndPlayer");
   const frame=document.getElementById("rndFrame");
   if(TRACK_IDS[s.t]){
@@ -1555,6 +1607,116 @@ function randomTrack(){
     player.classList.add("unavailable");
   }
 }
+
+function randomTrack(){
+  loadTrack(ALL[Math.floor(Math.random()*ALL.length)]);
+}
+
+/* ====== BUSCADOR DEL TOCADISCOS ====== */
+// Normaliza para búsqueda insensible a mayúsculas y acentos
+function normForSearch(s){
+  return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+}
+
+// Construir índice una vez con el grupo de cada tema
+const SEARCH_INDEX=ALL.map(s=>{
+  const g=DATA[0].includes(s)?0:(DATA[1].includes(s)?1:(DATA[2].includes(s)?2:(DATA[3].includes(s)?3:4)));
+  return {s, g, nt:normForSearch(s.t), na:normForSearch(s.a)};
+});
+const SEARCH_COLORS=["#00f0ff","#ff2e93","#ffe600","#b14aff","#4eff7f"];
+
+function escapeHtml(str){
+  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+function highlightMatch(original, qNorm){
+  if(!qNorm) return escapeHtml(original);
+  const norm=normForSearch(original);
+  const idx=norm.indexOf(qNorm);
+  if(idx<0) return escapeHtml(original);
+  return escapeHtml(original.slice(0,idx))+"<mark>"+escapeHtml(original.slice(idx,idx+qNorm.length))+"</mark>"+escapeHtml(original.slice(idx+qNorm.length));
+}
+
+function runSearch(){
+  const input=document.getElementById("rndSearchInput");
+  const wrap=document.getElementById("rndSearchWrap");
+  const results=document.getElementById("rndSearchResults");
+  const counter=document.getElementById("rndSearchCounter");
+  const raw=input.value.trim();
+  wrap.classList.toggle("has-text", raw.length>0);
+
+  if(raw.length<2){
+    results.classList.remove("open");
+    results.innerHTML="";
+    counter.textContent="";
+    return;
+  }
+  const q=normForSearch(raw);
+  const matches=SEARCH_INDEX.filter(x=>x.nt.indexOf(q)>=0 || x.na.indexOf(q)>=0);
+  counter.textContent=matches.length+" / "+ALL.length;
+
+  if(matches.length===0){
+    results.innerHTML='<div class="rnd-search-empty">Ningún tema coincide con «'+escapeHtml(raw)+'».<br>Prueba con otra palabra del título o del artista.</div>';
+    results.classList.add("open");
+    return;
+  }
+  // Ordenar: prioriza match en título sobre match en artista
+  matches.sort((a,b)=>{
+    const ta=a.nt.indexOf(q), tb=b.nt.indexOf(q);
+    if(ta>=0 && tb<0) return -1;
+    if(tb>=0 && ta<0) return 1;
+    if(ta>=0 && tb>=0) return ta-tb;
+    return a.na.indexOf(q)-b.na.indexOf(q);
+  });
+  results.innerHTML=matches.map((x,i)=>`
+    <div class="rnd-search-item" data-i="${i}" style="--c:${SEARCH_COLORS[x.g]}">
+      <div class="rs-dot" style="background:${SEARCH_COLORS[x.g]}"></div>
+      <div class="rs-main">
+        <div class="rs-title">${highlightMatch(x.s.t,q)}</div>
+        <div class="rs-artist">${highlightMatch(x.s.a,q)}</div>
+      </div>
+      <div class="rs-year">${x.s.y}</div>
+    </div>
+  `).join("");
+  // Asignar handlers (los guardamos para click)
+  results.querySelectorAll(".rnd-search-item").forEach(el=>{
+    el.addEventListener("click",()=>{
+      const idx=+el.dataset.i;
+      loadTrack(matches[idx].s);
+      // Cerrar + limpiar
+      input.value="";
+      wrap.classList.remove("has-text");
+      results.classList.remove("open");
+      results.innerHTML="";
+      counter.textContent="";
+      // Scroll suave al player
+      document.getElementById("rndPlayer").scrollIntoView({behavior:"smooth", block:"center"});
+    });
+  });
+  results.classList.add("open");
+}
+
+// Wiring del buscador (al final, tras DOM listo, lo hacemos al ejecutar el script)
+document.getElementById("rndSearchInput").addEventListener("input", runSearch);
+document.getElementById("rndSearchClear").addEventListener("click", ()=>{
+  const input=document.getElementById("rndSearchInput");
+  input.value="";
+  runSearch();
+  input.focus();
+});
+// Cerrar al clicar fuera
+document.addEventListener("click",(e)=>{
+  const search=document.querySelector(".rnd-search");
+  if(!search.contains(e.target)){
+    document.getElementById("rndSearchResults").classList.remove("open");
+  }
+});
+// Reabrir al enfocar si hay texto
+document.getElementById("rndSearchInput").addEventListener("focus",()=>{
+  if(document.getElementById("rndSearchInput").value.trim().length>=2){
+    document.getElementById("rndSearchResults").classList.add("open");
+  }
+});
 
 /* ====== TEMPORIZADOR CARA A ====== */
 let tLeft=22*60, tInt=null;
