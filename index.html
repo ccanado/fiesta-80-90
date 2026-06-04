@@ -689,7 +689,6 @@
       linear-gradient(rgba(0,240,255,.04) 1px,transparent 1px),
       linear-gradient(90deg,rgba(255,46,147,.04) 1px,transparent 1px);
     background-size:30px 30px;opacity:.6}
-  .geo-region{fill:none;stroke:rgba(177,74,255,.25);stroke-width:1;stroke-dasharray:4,4;rx:8}
   .geo-region-label{font-family:'Audiowide',sans-serif;font-size:9px;letter-spacing:2px;
     fill:rgba(244,236,255,.4);text-anchor:middle}
   .geo-country{fill:rgba(177,74,255,.08);stroke:rgba(0,240,255,.35);stroke-width:0.7;
@@ -1410,11 +1409,7 @@ const TRACK_IDS={
   "Self Control":"6efSiDvnrUxhUMPGssgOlV",
   "Don't You Want Me":"1pDhEcCl0d2SAQMKljdbys",
   "Tetris":"1evDbSUMze9LjlK12ARwCb",
-  "Popcorn":"2Cs2uUsUlHtaZbCewTZbEU",
-  "Lady, Lady":"3K0rUw4z0khdNg4MiSIHB4",
-  "Live Is Life":"7hkOgKKybgawYUcrkZD3wV",
-  "The Final Countdown":"3MrRksHupTVEQ7YbA0FsZK",
-  "Es imposible, no puede ser":"6yDEub6FRxoJ0Ml5XyWa7J",
+  "Popcorn":"2Cs2uUsUlHtaZbCewTZbEU",  "Es imposible, no puede ser":"6yDEub6FRxoJ0Ml5XyWa7J",
   "Strange":"59vwCDYJ7E31FpjPJtFlAD",
   "La tía Enriqueta":"7o64ZX4QSqGMPCf0upOWwJ",
   "Bombas":"1D3yebEqdfyojqfeb1RWex",
@@ -1505,14 +1500,6 @@ function fetchCoverITunes(t,a,imgEl){
     }).catch(()=>{});
 }
 
-/* Carátula desde una URL completa de Spotify (track, playlist o album) vía oEmbed */
-function fetchCoverFromUrl(spotifyUrl, imgEl){
-  if(!spotifyUrl) return;
-  fetch("https://open.spotify.com/oembed?url="+encodeURIComponent(spotifyUrl))
-    .then(r=>r.json())
-    .then(d=>{ if(d&&d.thumbnail_url) applyCover(imgEl,d.thumbnail_url); })
-    .catch(()=>{});
-}
 
 /* ====== RENDER PESTAÑAS (con acordeones por grupo) ====== */
 function trackHTML(s,k,i){
@@ -2353,19 +2340,19 @@ function buildTrophies(){
   "Megabeat":{c:"Valencia",co:"ES",la:39.47,lo:-0.38},
   "Megabeat (Interfront)":{c:"Valencia",co:"ES",la:39.47,lo:-0.38},
   "Locomía":{c:"Ibiza",co:"ES",la:38.91,lo:1.43},
-  "Depeche Mode":{c:"Londres",co:"UK",la:51.51,lo:-0.13},
-  "The Cure":{c:"Londres",co:"UK",la:51.51,lo:-0.13},
-  "Erasure":{c:"Londres",co:"UK",la:51.51,lo:-0.13},
-  "Pet Shop Boys":{c:"Londres",co:"UK",la:51.51,lo:-0.13},
-  "EMF":{c:"Bristol",co:"UK",la:51.45,lo:-2.59},
-  "Tears for Fears":{c:"Bath",co:"UK",la:51.38,lo:-2.36},
-  "Wham!":{c:"Londres",co:"UK",la:51.51,lo:-0.13},
-  "Freddie Mercury":{c:"Londres",co:"UK",la:51.51,lo:-0.13},
-  "Right Said Fred":{c:"Londres",co:"UK",la:51.51,lo:-0.13},
-  "The KLF":{c:"Londres",co:"UK",la:51.51,lo:-0.13},
-  "Soul II Soul":{c:"Londres",co:"UK",la:51.51,lo:-0.13},
-  "Felix":{c:"Londres",co:"UK",la:51.51,lo:-0.13},
-  "Doctor Spin":{c:"Londres",co:"UK",la:51.51,lo:-0.13},
+  "Depeche Mode":{c:"Londres",co:"GB",la:51.51,lo:-0.13},
+  "The Cure":{c:"Londres",co:"GB",la:51.51,lo:-0.13},
+  "Erasure":{c:"Londres",co:"GB",la:51.51,lo:-0.13},
+  "Pet Shop Boys":{c:"Londres",co:"GB",la:51.51,lo:-0.13},
+  "EMF":{c:"Bristol",co:"GB",la:51.45,lo:-2.59},
+  "Tears for Fears":{c:"Bath",co:"GB",la:51.38,lo:-2.36},
+  "Wham!":{c:"Londres",co:"GB",la:51.51,lo:-0.13},
+  "Freddie Mercury":{c:"Londres",co:"GB",la:51.51,lo:-0.13},
+  "Right Said Fred":{c:"Londres",co:"GB",la:51.51,lo:-0.13},
+  "The KLF":{c:"Londres",co:"GB",la:51.51,lo:-0.13},
+  "Soul II Soul":{c:"Londres",co:"GB",la:51.51,lo:-0.13},
+  "Felix":{c:"Londres",co:"GB",la:51.51,lo:-0.13},
+  "Doctor Spin":{c:"Londres",co:"GB",la:51.51,lo:-0.13},
   "U2":{c:"Dublín",co:"IE",la:53.35,lo:-6.26},
   "The Cranberries":{c:"Limerick",co:"IE",la:52.66,lo:-8.62},
   "Snap!":{c:"Frankfurt",co:"DE",la:50.11,lo:8.68},
@@ -2422,7 +2409,7 @@ function buildTrophies(){
     if(!g) return;
     const key=g.c+"|"+g.co;
     if(!cityAgg[key]){
-      cityAgg[key]={c:g.c,co:g.co,la:g.la,lo:g.lo,total:0,byGroup:[0,0,0,0],artists:{},tracks:[]};
+      cityAgg[key]={c:g.c,co:g.co,la:g.la,lo:g.lo,total:0,byGroup:[0,0,0,0,0],artists:{},tracks:[]};
     }
     const ag=cityAgg[key];
     ag.total++;
